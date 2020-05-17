@@ -51,6 +51,7 @@ LOCAL_APPS = [
     'Notification',
     'Chat',
     'Content',
+    'Statistics'
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS
