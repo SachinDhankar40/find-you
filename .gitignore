@@ -1,0 +1,8 @@
+
+
+
+findyouproject/db.sqlite3
+findyouproject/**/migrations
+findyouproject/**/__pycache__
+findyouproject/localsettings.py
+findyouproject/__pycache__
