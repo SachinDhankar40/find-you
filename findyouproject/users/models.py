@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import PermissionDenied
 from django.contrib import auth
+import requests
 
 class PermissionsMixin(models.Model):
     """
@@ -201,6 +202,9 @@ class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length=255, null=True, blank=True)
     mobile = models.BigIntegerField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='users/profile/')
+    country = models.ForeignKey(CscDetails,related_name='country',on_delete=models.SET_NULL,null=True)
+    state = models.ForeignKey(CscDetails,related_name='state',on_delete=models.SET_NULL,null=True)
+    city = models.ForeignKey(CscDetails,related_name='city',on_delete=models.SET_NULL,null=True)
     gender = models.PositiveSmallIntegerField(choices=gender_choice, null=True, blank=True)
     role = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=2)
     is_active = models.BooleanField(default=True)
@@ -212,6 +216,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         Token.objects.get_or_create(user=self)
+        
 
     def __str__(self):
         return self.username
@@ -222,9 +227,6 @@ class FindyouUser(BaseFindModel):
     Description = models.TextField(null=True, blank=True)
     primecreater = models.BooleanField(default=False)
     Interest = models.TextField(null=True, blank=True)
-    country = models.ForeignKey(CscDetails,related_name='country',on_delete=models.SET_NULL,null=True)
-    state = models.ForeignKey(CscDetails,related_name='state',on_delete=models.SET_NULL,null=True)
-    city = models.ForeignKey(CscDetails,related_name='city',on_delete=models.SET_NULL,null=True)
     BlockList= models.TextField(null=True, blank=True , help_text="show the list of blocked users ids")
     contentViewpercent = models.FloatField(null=True,blank=True, help_text="show the other content view percentage of user")
     post = models.BigIntegerField(null=True, blank=True, help_text="number od post done by user")

@@ -20,11 +20,12 @@ class CscDetails(BaseFindModel):
 
 class ContentUser(models.Model):
     userId = models.BigIntegerField()
-    profile_picture = models.TextField(help_text="path of profile picture")
+    profile_picture = models.TextField(help_text="path of profile picture",null=True,blank=True)
     name = models.CharField(max_length=255, null=True, blank=True)
-    country = models.BigIntegerField(help_text="id of country")
-    state = models.BigIntegerField(help_text="id of state")
-    city = models.BigIntegerField(help_text="id of city")
+    country = models.ForeignKey(CscDetails,related_name='country', on_delete=models.SET_NULL,null=True,help_text="id of country")
+    state = models.ForeignKey(CscDetails,related_name='state', on_delete=models.SET_NULL,null=True,help_text="id of country")
+    city = models.ForeignKey(CscDetails,related_name='city', on_delete=models.SET_NULL,null=True,help_text="id of country")
+    BlockList= models.TextField(null=True, blank=True , help_text="show the list of blocked users ids")
 
 class Content(BaseFindModel):
     user = models.ForeignKey(ContentUser,on_delete=models.SET_NULL,null=True)
