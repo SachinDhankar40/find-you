@@ -8,8 +8,17 @@ class BaseFindModel(models.Model):
     class Meta:
         abstract = True
 
+class NotificationUser(models.Model):
+    userId = models.BigIntegerField()
+    profile_picture = models.TextField(help_text="path of profile picture",null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+
+class NotificationContent(models.Model):
+    contentId = models.BigIntegerField()
+    contentthumbnail = models.TextField(help_text = "path of content media thumbnail",null=True, blank=True)
+
 class ContentNotification(BaseFindModel):
-    content = models.BigIntegerField()
+    content = models.ForeignKey(NotificationContent, on_delete=models.CASCADE)
     description = models.CharField(max_length=150)
     contentstatement = models.TextField()
 
@@ -19,5 +28,5 @@ class ChatNotification(BaseFindModel):
     contentstatement = models.TextField()
 
 class UserNotification(BaseFindModel):
-    chat = models.BigIntegerField()
+    user = models.ForeignKey(NotificationUser,on_delete=models.CASCADE)
     description = models.CharField(max_length=150)

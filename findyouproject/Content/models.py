@@ -18,13 +18,18 @@ class CscDetails(BaseFindModel):
     def __str__(self):
         return self.label+" "+str(self.id)
 
-class Content(BaseFindModel):
-    user = models.BigIntegerField(help_text="reference of user id")
-    description = models.TextField(blank=True, null=True)
-    category = models.IntegerField(choices=ContentCategory.CHOICES)
+class ContentUser(models.Model):
+    userId = models.BigIntegerField()
+    profile_picture = models.TextField(help_text="path of profile picture")
+    name = models.CharField(max_length=255, null=True, blank=True)
     country = models.BigIntegerField(help_text="id of country")
     state = models.BigIntegerField(help_text="id of state")
     city = models.BigIntegerField(help_text="id of city")
+
+class Content(BaseFindModel):
+    user = models.ForeignKey(ContentUser,on_delete=models.SET_NULL,null=True)
+    description = models.TextField(blank=True, null=True)
+    category = models.IntegerField(choices=ContentCategory.CHOICES)
     place = models.CharField(max_length=100, blank=True, null=True , help_text="content upload location reference")
     contenttype= models.IntegerField(choices = ContentType.CHOICES)
     associate_media = models.FileField(upload_to='textpost/media/', help_text="media file asscociated with text post")

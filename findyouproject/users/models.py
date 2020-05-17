@@ -239,6 +239,10 @@ class FindyouUser(BaseFindModel):
 
     def location(self):
         return f'{self.country.label}, {self.state.label}, {self.city.label}'
+    
+    @property
+    def fullname(self):
+        return f'{self.user.firstName}{self.user.lastName}'
 
 class ContentMonitorAdmin(BaseFindModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
