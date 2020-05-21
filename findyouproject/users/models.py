@@ -3,12 +3,13 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from rest_framework.authtoken.models import Token
 from django.conf import settings
-from .choices import CscType
+from .choices import CscType, ObjectStatusChoices
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import PermissionDenied
 from django.contrib import auth
 import requests
+import json
 
 class PermissionsMixin(models.Model):
     """
@@ -149,6 +150,7 @@ class BaseFindModel(models.Model):
     added_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     updated_by = models.CharField(blank=True,null=True,max_length=100)
+    object_status = models.SmallIntegerField(choices=ObjectStatusChoices.CHOICES,default=0)
 
     class Meta:
         abstract = True
@@ -198,9 +200,9 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     username = models.CharField(max_length=60, unique=True)
     firstName = models.CharField(max_length=255, null=True, blank=True)
-    lastName = models.CharField(max_length=255, null=True, blank=True)
+    lastName = models.CharField(max_length=255, blank=True,default="")
     email = models.EmailField(max_length=255, null=True, blank=True)
-    mobile = models.BigIntegerField(null=True, blank=True)
+    mobile = models.CharField(max_length=50)
     profile_picture = models.ImageField(upload_to='users/profile/')
     country = models.ForeignKey(CscDetails,related_name='country',on_delete=models.SET_NULL,null=True)
     state = models.ForeignKey(CscDetails,related_name='state',on_delete=models.SET_NULL,null=True)
@@ -216,15 +218,14 @@ class User(AbstractBaseUser,PermissionsMixin):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         Token.objects.get_or_create(user=self)
-        
 
     def __str__(self):
-        return self.username
+        return self.username+" "+str(self.id)
 
 class FindyouUser(BaseFindModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    coverpic = models.ImageField(upload_to='users/profile/')
-    Description = models.TextField(null=True, blank=True)
+    coverpic = models.ImageField(upload_to='users/profile/',null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     primecreater = models.BooleanField(default=False)
     Interest = models.TextField(null=True, blank=True)
     BlockList= models.TextField(null=True, blank=True , help_text="show the list of blocked users ids")

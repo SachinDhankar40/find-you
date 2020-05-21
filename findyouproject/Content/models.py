@@ -1,31 +1,26 @@
 from django.db import models
-from .choices import CscType, ContentType, ContentCategory
+from .choices import CscType, ContentType, ContentCategory,ObjectStatusChoices
 
 class BaseFindModel(models.Model):
     added_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     updated_by = models.CharField(blank=True,null=True,max_length=100)
+    object_status = models.SmallIntegerField(choices=ObjectStatusChoices.CHOICES,default=0)
 
     class Meta:
         abstract = True
-
-
-class CscDetails(BaseFindModel):
-    label = models.CharField(max_length=50, blank=True, null=True)
-    parent = models.ForeignKey('self',blank=True,null=True,on_delete=models.SET_NULL)
-    csc_type = models.IntegerField(choices=CscType.CHOICES, blank=True, null=True)
-
-    def __str__(self):
-        return self.label+" "+str(self.id)
 
 class ContentUser(models.Model):
     userId = models.BigIntegerField()
     profile_picture = models.TextField(help_text="path of profile picture",null=True,blank=True)
     name = models.CharField(max_length=255, null=True, blank=True)
-    country = models.ForeignKey(CscDetails,related_name='country', on_delete=models.SET_NULL,null=True,help_text="id of country")
-    state = models.ForeignKey(CscDetails,related_name='state', on_delete=models.SET_NULL,null=True,help_text="id of country")
-    city = models.ForeignKey(CscDetails,related_name='city', on_delete=models.SET_NULL,null=True,help_text="id of country")
+    Interest = models.TextField(null=True, blank=True)
+    country = models.BigIntegerField(help_text="id of country",null=True,blank=True)
+    state = models.BigIntegerField(help_text="id of country",null=True,blank=True)
+    city = models.BigIntegerField(help_text="id of country",null=True,blank=True)
     BlockList= models.TextField(null=True, blank=True , help_text="show the list of blocked users ids")
+    object_status = models.SmallIntegerField(choices=ObjectStatusChoices.CHOICES,default=0)
+
 
 class Content(BaseFindModel):
     user = models.ForeignKey(ContentUser,on_delete=models.SET_NULL,null=True)

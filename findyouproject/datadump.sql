@@ -27,6 +27,7 @@ CREATE TABLE `Chat_chat` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `title` varchar(200) DEFAULT NULL,
   `contentid` bigint(20) DEFAULT NULL,
   `profile_pic` varchar(100) NOT NULL,
@@ -58,6 +59,7 @@ CREATE TABLE `Chat_chatcontent` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `chat` bigint(20) NOT NULL,
   `text` longtext,
   `media` varchar(100) DEFAULT NULL,
@@ -88,6 +90,7 @@ CREATE TABLE `Content_advertisement` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `user` bigint(20) NOT NULL,
   `media` varchar(100) NOT NULL,
   `mediahref` longtext NOT NULL,
@@ -117,6 +120,7 @@ CREATE TABLE `Content_comment` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `decription` longtext NOT NULL,
   `comment_by` bigint(20) NOT NULL,
   `like` bigint(20) DEFAULT NULL,
@@ -152,6 +156,7 @@ CREATE TABLE `Content_commentreply` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `comment_by` bigint(20) NOT NULL,
   `decription` longtext NOT NULL,
   `like` bigint(20) DEFAULT NULL,
@@ -184,6 +189,7 @@ CREATE TABLE `Content_content` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `description` longtext,
   `category` int(11) NOT NULL,
   `place` varchar(100) DEFAULT NULL,
@@ -222,13 +228,16 @@ DROP TABLE IF EXISTS `Content_contentuser`;
 CREATE TABLE `Content_contentuser` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` bigint(20) NOT NULL,
-  `profile_picture` longtext NOT NULL,
+  `profile_picture` longtext,
   `name` varchar(255) DEFAULT NULL,
-  `country` bigint(20) NOT NULL,
-  `state` bigint(20) NOT NULL,
-  `city` bigint(20) NOT NULL,
+  `Interest` longtext,
+  `country` bigint(20) DEFAULT NULL,
+  `state` bigint(20) DEFAULT NULL,
+  `city` bigint(20) DEFAULT NULL,
+  `BlockList` longtext,
+  `object_status` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,37 +246,8 @@ CREATE TABLE `Content_contentuser` (
 
 LOCK TABLES `Content_contentuser` WRITE;
 /*!40000 ALTER TABLE `Content_contentuser` DISABLE KEYS */;
+INSERT INTO `Content_contentuser` VALUES (1,2,'/media/ajinkyadelhi.png','Ajinkya ',NULL,1,2,3,NULL,0),(2,3,'/media/andrewrajasthan.png','Andrew ',NULL,1,2,3,NULL,0),(3,4,'/media/axardelhi.png','Axar ',NULL,1,2,3,NULL,0),(4,5,'/media/benrajasthan.png','Bengemin ',NULL,1,2,3,NULL,0);
 /*!40000 ALTER TABLE `Content_contentuser` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Content_cscdetails`
---
-
-DROP TABLE IF EXISTS `Content_cscdetails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Content_cscdetails` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `added_on` datetime(6) NOT NULL,
-  `updated_on` datetime(6) NOT NULL,
-  `updated_by` varchar(100) DEFAULT NULL,
-  `label` varchar(50) DEFAULT NULL,
-  `csc_type` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Content_cscdetails_parent_id_c2ce420d_fk_Content_cscdetails_id` (`parent_id`),
-  CONSTRAINT `Content_cscdetails_parent_id_c2ce420d_fk_Content_cscdetails_id` FOREIGN KEY (`parent_id`) REFERENCES `Content_cscdetails` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Content_cscdetails`
---
-
-LOCK TABLES `Content_cscdetails` WRITE;
-/*!40000 ALTER TABLE `Content_cscdetails` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Content_cscdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -282,6 +262,7 @@ CREATE TABLE `Content_like` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `liked_by` bigint(20) NOT NULL,
   `adv_id` int(11) DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
@@ -314,6 +295,7 @@ CREATE TABLE `Content_spamreport` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `reported_by` bigint(20) NOT NULL,
   `decription` longtext NOT NULL,
   `content_id` int(11) NOT NULL,
@@ -344,6 +326,7 @@ CREATE TABLE `Content_view` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `adv_id` int(11) DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -375,6 +358,7 @@ CREATE TABLE `Notification_chatnotification` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `chat` bigint(20) NOT NULL,
   `description` varchar(150) NOT NULL,
   `contentstatement` longtext NOT NULL,
@@ -403,6 +387,7 @@ CREATE TABLE `Notification_contentnotification` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `description` varchar(150) NOT NULL,
   `contentstatement` longtext NOT NULL,
   `content_id` int(11) NOT NULL,
@@ -432,6 +417,7 @@ CREATE TABLE `Notification_notificationcontent` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contentId` bigint(20) NOT NULL,
   `contentthumbnail` longtext,
+  `object_status` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -446,31 +432,6 @@ LOCK TABLES `Notification_notificationcontent` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Notification_notificationuser`
---
-
-DROP TABLE IF EXISTS `Notification_notificationuser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Notification_notificationuser` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` bigint(20) NOT NULL,
-  `profile_picture` longtext,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Notification_notificationuser`
---
-
-LOCK TABLES `Notification_notificationuser` WRITE;
-/*!40000 ALTER TABLE `Notification_notificationuser` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Notification_notificationuser` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Notification_usernotification`
 --
 
@@ -482,11 +443,10 @@ CREATE TABLE `Notification_usernotification` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
+  `user` bigint(20) NOT NULL,
   `description` varchar(150) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Notification_usernot_user_id_7e165e1f_fk_Notificat` (`user_id`),
-  CONSTRAINT `Notification_usernot_user_id_7e165e1f_fk_Notificat` FOREIGN KEY (`user_id`) REFERENCES `Notification_notificationuser` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -566,7 +526,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -575,7 +535,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add content type',4,'add_contenttype'),(14,'Can change content type',4,'change_contenttype'),(15,'Can delete content type',4,'delete_contenttype'),(16,'Can view content type',4,'view_contenttype'),(17,'Can add session',5,'add_session'),(18,'Can change session',5,'change_session'),(19,'Can delete session',5,'delete_session'),(20,'Can view session',5,'view_session'),(21,'Can add Token',6,'add_token'),(22,'Can change Token',6,'change_token'),(23,'Can delete Token',6,'delete_token'),(24,'Can view Token',6,'view_token'),(25,'Can add user',7,'add_user'),(26,'Can change user',7,'change_user'),(27,'Can delete user',7,'delete_user'),(28,'Can view user',7,'view_user'),(29,'Can add advertise partner',8,'add_advertisepartner'),(30,'Can change advertise partner',8,'change_advertisepartner'),(31,'Can delete advertise partner',8,'delete_advertisepartner'),(32,'Can view advertise partner',8,'view_advertisepartner'),(33,'Can add csc details',9,'add_cscdetails'),(34,'Can change csc details',9,'change_cscdetails'),(35,'Can delete csc details',9,'delete_cscdetails'),(36,'Can view csc details',9,'view_cscdetails'),(37,'Can add invalid login',10,'add_invalidlogin'),(38,'Can change invalid login',10,'change_invalidlogin'),(39,'Can delete invalid login',10,'delete_invalidlogin'),(40,'Can view invalid login',10,'view_invalidlogin'),(41,'Can add user otp',11,'add_userotp'),(42,'Can change user otp',11,'change_userotp'),(43,'Can delete user otp',11,'delete_userotp'),(44,'Can view user otp',11,'view_userotp'),(45,'Can add findyou user',12,'add_findyouuser'),(46,'Can change findyou user',12,'change_findyouuser'),(47,'Can delete findyou user',12,'delete_findyouuser'),(48,'Can view findyou user',12,'view_findyouuser'),(49,'Can add division',13,'add_division'),(50,'Can change division',13,'change_division'),(51,'Can delete division',13,'delete_division'),(52,'Can view division',13,'view_division'),(53,'Can add content monitor admin',14,'add_contentmonitoradmin'),(54,'Can change content monitor admin',14,'change_contentmonitoradmin'),(55,'Can delete content monitor admin',14,'delete_contentmonitoradmin'),(56,'Can view content monitor admin',14,'view_contentmonitoradmin'),(57,'Can add chat notification',15,'add_chatnotification'),(58,'Can change chat notification',15,'change_chatnotification'),(59,'Can delete chat notification',15,'delete_chatnotification'),(60,'Can view chat notification',15,'view_chatnotification'),(61,'Can add notification content',16,'add_notificationcontent'),(62,'Can change notification content',16,'change_notificationcontent'),(63,'Can delete notification content',16,'delete_notificationcontent'),(64,'Can view notification content',16,'view_notificationcontent'),(65,'Can add notification user',17,'add_notificationuser'),(66,'Can change notification user',17,'change_notificationuser'),(67,'Can delete notification user',17,'delete_notificationuser'),(68,'Can view notification user',17,'view_notificationuser'),(69,'Can add user notification',18,'add_usernotification'),(70,'Can change user notification',18,'change_usernotification'),(71,'Can delete user notification',18,'delete_usernotification'),(72,'Can view user notification',18,'view_usernotification'),(73,'Can add content notification',19,'add_contentnotification'),(74,'Can change content notification',19,'change_contentnotification'),(75,'Can delete content notification',19,'delete_contentnotification'),(76,'Can view content notification',19,'view_contentnotification'),(77,'Can add chat',20,'add_chat'),(78,'Can change chat',20,'change_chat'),(79,'Can delete chat',20,'delete_chat'),(80,'Can view chat',20,'view_chat'),(81,'Can add chat content',21,'add_chatcontent'),(82,'Can change chat content',21,'change_chatcontent'),(83,'Can delete chat content',21,'delete_chatcontent'),(84,'Can view chat content',21,'view_chatcontent'),(85,'Can add advertisement',22,'add_advertisement'),(86,'Can change advertisement',22,'change_advertisement'),(87,'Can delete advertisement',22,'delete_advertisement'),(88,'Can view advertisement',22,'view_advertisement'),(89,'Can add comment',23,'add_comment'),(90,'Can change comment',23,'change_comment'),(91,'Can delete comment',23,'delete_comment'),(92,'Can view comment',23,'view_comment'),(93,'Can add content',24,'add_content'),(94,'Can change content',24,'change_content'),(95,'Can delete content',24,'delete_content'),(96,'Can view content',24,'view_content'),(97,'Can add content user',25,'add_contentuser'),(98,'Can change content user',25,'change_contentuser'),(99,'Can delete content user',25,'delete_contentuser'),(100,'Can view content user',25,'view_contentuser'),(101,'Can add view',26,'add_view'),(102,'Can change view',26,'change_view'),(103,'Can delete view',26,'delete_view'),(104,'Can view view',26,'view_view'),(105,'Can add spam report',27,'add_spamreport'),(106,'Can change spam report',27,'change_spamreport'),(107,'Can delete spam report',27,'delete_spamreport'),(108,'Can view spam report',27,'view_spamreport'),(109,'Can add like',28,'add_like'),(110,'Can change like',28,'change_like'),(111,'Can delete like',28,'delete_like'),(112,'Can view like',28,'view_like'),(113,'Can add csc details',29,'add_cscdetails'),(114,'Can change csc details',29,'change_cscdetails'),(115,'Can delete csc details',29,'delete_cscdetails'),(116,'Can view csc details',29,'view_cscdetails'),(117,'Can add comment reply',30,'add_commentreply'),(118,'Can change comment reply',30,'change_commentreply'),(119,'Can delete comment reply',30,'delete_commentreply'),(120,'Can view comment reply',30,'view_commentreply');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add content type',4,'add_contenttype'),(14,'Can change content type',4,'change_contenttype'),(15,'Can delete content type',4,'delete_contenttype'),(16,'Can view content type',4,'view_contenttype'),(17,'Can add session',5,'add_session'),(18,'Can change session',5,'change_session'),(19,'Can delete session',5,'delete_session'),(20,'Can view session',5,'view_session'),(21,'Can add Token',6,'add_token'),(22,'Can change Token',6,'change_token'),(23,'Can delete Token',6,'delete_token'),(24,'Can view Token',6,'view_token'),(25,'Can add user',7,'add_user'),(26,'Can change user',7,'change_user'),(27,'Can delete user',7,'delete_user'),(28,'Can view user',7,'view_user'),(29,'Can add advertise partner',8,'add_advertisepartner'),(30,'Can change advertise partner',8,'change_advertisepartner'),(31,'Can delete advertise partner',8,'delete_advertisepartner'),(32,'Can view advertise partner',8,'view_advertisepartner'),(33,'Can add csc details',9,'add_cscdetails'),(34,'Can change csc details',9,'change_cscdetails'),(35,'Can delete csc details',9,'delete_cscdetails'),(36,'Can view csc details',9,'view_cscdetails'),(37,'Can add invalid login',10,'add_invalidlogin'),(38,'Can change invalid login',10,'change_invalidlogin'),(39,'Can delete invalid login',10,'delete_invalidlogin'),(40,'Can view invalid login',10,'view_invalidlogin'),(41,'Can add user otp',11,'add_userotp'),(42,'Can change user otp',11,'change_userotp'),(43,'Can delete user otp',11,'delete_userotp'),(44,'Can view user otp',11,'view_userotp'),(45,'Can add findyou user',12,'add_findyouuser'),(46,'Can change findyou user',12,'change_findyouuser'),(47,'Can delete findyou user',12,'delete_findyouuser'),(48,'Can view findyou user',12,'view_findyouuser'),(49,'Can add division',13,'add_division'),(50,'Can change division',13,'change_division'),(51,'Can delete division',13,'delete_division'),(52,'Can view division',13,'view_division'),(53,'Can add content monitor admin',14,'add_contentmonitoradmin'),(54,'Can change content monitor admin',14,'change_contentmonitoradmin'),(55,'Can delete content monitor admin',14,'delete_contentmonitoradmin'),(56,'Can view content monitor admin',14,'view_contentmonitoradmin'),(57,'Can add chat notification',15,'add_chatnotification'),(58,'Can change chat notification',15,'change_chatnotification'),(59,'Can delete chat notification',15,'delete_chatnotification'),(60,'Can view chat notification',15,'view_chatnotification'),(61,'Can add notification content',16,'add_notificationcontent'),(62,'Can change notification content',16,'change_notificationcontent'),(63,'Can delete notification content',16,'delete_notificationcontent'),(64,'Can view notification content',16,'view_notificationcontent'),(65,'Can add user notification',17,'add_usernotification'),(66,'Can change user notification',17,'change_usernotification'),(67,'Can delete user notification',17,'delete_usernotification'),(68,'Can view user notification',17,'view_usernotification'),(69,'Can add content notification',18,'add_contentnotification'),(70,'Can change content notification',18,'change_contentnotification'),(71,'Can delete content notification',18,'delete_contentnotification'),(72,'Can view content notification',18,'view_contentnotification'),(73,'Can add chat',19,'add_chat'),(74,'Can change chat',19,'change_chat'),(75,'Can delete chat',19,'delete_chat'),(76,'Can view chat',19,'view_chat'),(77,'Can add chat content',20,'add_chatcontent'),(78,'Can change chat content',20,'change_chatcontent'),(79,'Can delete chat content',20,'delete_chatcontent'),(80,'Can view chat content',20,'view_chatcontent'),(81,'Can add advertisement',21,'add_advertisement'),(82,'Can change advertisement',21,'change_advertisement'),(83,'Can delete advertisement',21,'delete_advertisement'),(84,'Can view advertisement',21,'view_advertisement'),(85,'Can add comment',22,'add_comment'),(86,'Can change comment',22,'change_comment'),(87,'Can delete comment',22,'delete_comment'),(88,'Can view comment',22,'view_comment'),(89,'Can add content',23,'add_content'),(90,'Can change content',23,'change_content'),(91,'Can delete content',23,'delete_content'),(92,'Can view content',23,'view_content'),(93,'Can add content user',24,'add_contentuser'),(94,'Can change content user',24,'change_contentuser'),(95,'Can delete content user',24,'delete_contentuser'),(96,'Can view content user',24,'view_contentuser'),(97,'Can add view',25,'add_view'),(98,'Can change view',25,'change_view'),(99,'Can delete view',25,'delete_view'),(100,'Can view view',25,'view_view'),(101,'Can add spam report',26,'add_spamreport'),(102,'Can change spam report',26,'change_spamreport'),(103,'Can delete spam report',26,'delete_spamreport'),(104,'Can view spam report',26,'view_spamreport'),(105,'Can add like',27,'add_like'),(106,'Can change like',27,'change_like'),(107,'Can delete like',27,'delete_like'),(108,'Can view like',27,'view_like'),(109,'Can add comment reply',28,'add_commentreply'),(110,'Can change comment reply',28,'change_commentreply'),(111,'Can delete comment reply',28,'delete_commentreply'),(112,'Can view comment reply',28,'view_commentreply');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -602,7 +562,7 @@ CREATE TABLE `authtoken_token` (
 
 LOCK TABLES `authtoken_token` WRITE;
 /*!40000 ALTER TABLE `authtoken_token` DISABLE KEYS */;
-INSERT INTO `authtoken_token` VALUES ('bcbe980faa92b1e6be400dcea59597fe1a3da00e','2020-05-17 09:18:30.248980',1);
+INSERT INTO `authtoken_token` VALUES ('2562313642f8a5f95ab03b52f40d20b5b3acebfd','2020-05-21 12:01:53.160939',5),('733d71dc994cd0e89f3932ea39fe0e9a6d6cdde8','2020-05-21 11:57:51.212174',3),('8a5e648d121382eff7028e75b8f0c89ee4e2b70b','2020-05-21 11:40:37.754518',1),('c34a4341803a749593eb9c4ae1568948900d645e','2020-05-21 11:47:05.149183',2),('de18c967928ad72fbe9a941fe07d5f9f030c572d','2020-05-21 12:00:04.515494',4);
 /*!40000 ALTER TABLE `authtoken_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -627,7 +587,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_user_id_c564eba6_fk_users_user_id` (`user_id`),
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -636,6 +596,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+INSERT INTO `django_admin_log` VALUES (1,'2020-05-21 11:45:53.468885','1','India 1',1,'[{\"added\": {}}]',9,1),(2,'2020-05-21 11:46:08.036427','2','Haryana 2',1,'[{\"added\": {}}]',9,1),(3,'2020-05-21 11:46:21.705312','3','Faridabad 3',1,'[{\"added\": {}}]',9,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -652,7 +613,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -661,7 +622,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(6,'authtoken','token'),(20,'Chat','chat'),(21,'Chat','chatcontent'),(22,'Content','advertisement'),(23,'Content','comment'),(30,'Content','commentreply'),(24,'Content','content'),(25,'Content','contentuser'),(29,'Content','cscdetails'),(28,'Content','like'),(27,'Content','spamreport'),(26,'Content','view'),(4,'contenttypes','contenttype'),(15,'Notification','chatnotification'),(19,'Notification','contentnotification'),(16,'Notification','notificationcontent'),(17,'Notification','notificationuser'),(18,'Notification','usernotification'),(5,'sessions','session'),(8,'users','advertisepartner'),(14,'users','contentmonitoradmin'),(9,'users','cscdetails'),(13,'users','division'),(12,'users','findyouuser'),(10,'users','invalidlogin'),(7,'users','user'),(11,'users','userotp');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(6,'authtoken','token'),(19,'Chat','chat'),(20,'Chat','chatcontent'),(21,'Content','advertisement'),(22,'Content','comment'),(28,'Content','commentreply'),(23,'Content','content'),(24,'Content','contentuser'),(27,'Content','like'),(26,'Content','spamreport'),(25,'Content','view'),(4,'contenttypes','contenttype'),(15,'Notification','chatnotification'),(18,'Notification','contentnotification'),(16,'Notification','notificationcontent'),(17,'Notification','usernotification'),(5,'sessions','session'),(8,'users','advertisepartner'),(14,'users','contentmonitoradmin'),(9,'users','cscdetails'),(13,'users','division'),(12,'users','findyouuser'),(10,'users','invalidlogin'),(7,'users','user'),(11,'users','userotp');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -687,7 +648,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'Chat','0001_initial','2020-05-17 09:15:43.008880'),(2,'Content','0001_initial','2020-05-17 09:15:47.293323'),(3,'Notification','0001_initial','2020-05-17 09:15:54.460218'),(4,'contenttypes','0001_initial','2020-05-17 09:15:56.135012'),(5,'contenttypes','0002_remove_content_type_name','2020-05-17 09:15:57.232079'),(6,'auth','0001_initial','2020-05-17 09:16:02.645154'),(7,'auth','0002_alter_permission_name_max_length','2020-05-17 09:16:05.000291'),(8,'auth','0003_alter_user_email_max_length','2020-05-17 09:16:05.054658'),(9,'auth','0004_alter_user_username_opts','2020-05-17 09:16:05.096587'),(10,'auth','0005_alter_user_last_login_null','2020-05-17 09:16:05.146733'),(11,'auth','0006_require_contenttypes_0002','2020-05-17 09:16:05.182127'),(12,'auth','0007_alter_validators_add_error_messages','2020-05-17 09:16:05.230607'),(13,'auth','0008_alter_user_username_max_length','2020-05-17 09:16:05.284393'),(14,'auth','0009_alter_user_last_name_max_length','2020-05-17 09:16:05.326097'),(15,'auth','0010_alter_group_name_max_length','2020-05-17 09:16:05.435796'),(16,'auth','0011_update_proxy_permissions','2020-05-17 09:16:05.504625'),(17,'users','0001_initial','2020-05-17 09:16:08.418724'),(18,'admin','0001_initial','2020-05-17 09:16:18.731613'),(19,'admin','0002_logentry_remove_auto_add','2020-05-17 09:16:20.128019'),(20,'admin','0003_logentry_add_action_flag_choices','2020-05-17 09:16:20.175854'),(21,'authtoken','0001_initial','2020-05-17 09:16:20.562177'),(22,'authtoken','0002_auto_20160226_1747','2020-05-17 09:16:22.150433'),(23,'sessions','0001_initial','2020-05-17 09:16:22.455678');
+INSERT INTO `django_migrations` VALUES (1,'Chat','0001_initial','2020-05-21 11:39:37.478594'),(2,'Content','0001_initial','2020-05-21 11:39:41.269374'),(3,'Notification','0001_initial','2020-05-21 11:39:46.833813'),(4,'contenttypes','0001_initial','2020-05-21 11:39:47.965237'),(5,'contenttypes','0002_remove_content_type_name','2020-05-21 11:39:52.556869'),(6,'auth','0001_initial','2020-05-21 11:39:54.737750'),(7,'auth','0002_alter_permission_name_max_length','2020-05-21 11:39:57.267985'),(8,'auth','0003_alter_user_email_max_length','2020-05-21 11:39:57.313540'),(9,'auth','0004_alter_user_username_opts','2020-05-21 11:39:57.354557'),(10,'auth','0005_alter_user_last_login_null','2020-05-21 11:39:57.388412'),(11,'auth','0006_require_contenttypes_0002','2020-05-21 11:39:57.424637'),(12,'auth','0007_alter_validators_add_error_messages','2020-05-21 11:39:57.465279'),(13,'auth','0008_alter_user_username_max_length','2020-05-21 11:39:57.507009'),(14,'auth','0009_alter_user_last_name_max_length','2020-05-21 11:39:57.547749'),(15,'auth','0010_alter_group_name_max_length','2020-05-21 11:39:57.653803'),(16,'auth','0011_update_proxy_permissions','2020-05-21 11:39:57.709719'),(17,'users','0001_initial','2020-05-21 11:40:02.792664'),(18,'admin','0001_initial','2020-05-21 11:40:10.283007'),(19,'admin','0002_logentry_remove_auto_add','2020-05-21 11:40:11.703966'),(20,'admin','0003_logentry_add_action_flag_choices','2020-05-21 11:40:11.762961'),(21,'authtoken','0001_initial','2020-05-21 11:40:12.121222'),(22,'authtoken','0002_auto_20160226_1747','2020-05-21 11:40:13.656776'),(23,'sessions','0001_initial','2020-05-21 11:40:13.974307');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -713,6 +674,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('w27y1f14yjw2cmla7xxuh88f9q3xeyun','NTU2NmNkMTEyMzkzMjc5NGQzODk2OTNiYTIyNmU4OGRmMTEyN2RiYTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMTEyYjM4MzBmZDM1NGYzM2QyZmNmMWJiN2ZlNjlmNTBjNjhmOWI2In0=','2020-06-04 11:41:01.540552');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -728,6 +690,7 @@ CREATE TABLE `users_advertisepartner` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `name` varchar(200) NOT NULL,
   `email` varchar(255) NOT NULL,
   `mobile` bigint(20) NOT NULL,
@@ -757,6 +720,7 @@ CREATE TABLE `users_contentmonitoradmin` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `content_type` int(11) NOT NULL,
   `region_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
@@ -789,13 +753,14 @@ CREATE TABLE `users_cscdetails` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `label` varchar(50) DEFAULT NULL,
   `csc_type` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `users_cscdetails_parent_id_f5ec93cf_fk_users_cscdetails_id` (`parent_id`),
   CONSTRAINT `users_cscdetails_parent_id_f5ec93cf_fk_users_cscdetails_id` FOREIGN KEY (`parent_id`) REFERENCES `users_cscdetails` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -804,6 +769,7 @@ CREATE TABLE `users_cscdetails` (
 
 LOCK TABLES `users_cscdetails` WRITE;
 /*!40000 ALTER TABLE `users_cscdetails` DISABLE KEYS */;
+INSERT INTO `users_cscdetails` VALUES (1,'2020-05-21 11:45:53.467729','2020-05-21 11:45:53.467786',NULL,0,'India',1,NULL),(2,'2020-05-21 11:46:08.035704','2020-05-21 11:46:08.035742',NULL,0,'Haryana',2,1),(3,'2020-05-21 11:46:21.704414','2020-05-21 11:46:21.704466',NULL,0,'Faridabad',3,2);
 /*!40000 ALTER TABLE `users_cscdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -819,6 +785,7 @@ CREATE TABLE `users_division` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `label` varchar(150) NOT NULL,
   `csc_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -848,8 +815,9 @@ CREATE TABLE `users_findyouuser` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `coverpic` varchar(100) NOT NULL,
-  `Description` longtext,
+  `object_status` smallint(6) NOT NULL,
+  `coverpic` varchar(100) DEFAULT NULL,
+  `description` longtext,
   `primecreater` tinyint(1) NOT NULL,
   `Interest` longtext,
   `BlockList` longtext,
@@ -860,20 +828,11 @@ CREATE TABLE `users_findyouuser` (
   `subscribing` bigint(20) DEFAULT NULL,
   `subscribingUser` longtext,
   `saved_content` longtext,
-  `city_id` int(11) DEFAULT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `state_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
-  KEY `users_findyouuser_city_id_c0924bb4_fk_users_cscdetails_id` (`city_id`),
-  KEY `users_findyouuser_country_id_27271a78_fk_users_cscdetails_id` (`country_id`),
-  KEY `users_findyouuser_state_id_1e5273f7_fk_users_cscdetails_id` (`state_id`),
-  CONSTRAINT `users_findyouuser_city_id_c0924bb4_fk_users_cscdetails_id` FOREIGN KEY (`city_id`) REFERENCES `users_cscdetails` (`id`),
-  CONSTRAINT `users_findyouuser_country_id_27271a78_fk_users_cscdetails_id` FOREIGN KEY (`country_id`) REFERENCES `users_cscdetails` (`id`),
-  CONSTRAINT `users_findyouuser_state_id_1e5273f7_fk_users_cscdetails_id` FOREIGN KEY (`state_id`) REFERENCES `users_cscdetails` (`id`),
   CONSTRAINT `users_findyouuser_user_id_53319659_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -882,6 +841,7 @@ CREATE TABLE `users_findyouuser` (
 
 LOCK TABLES `users_findyouuser` WRITE;
 /*!40000 ALTER TABLE `users_findyouuser` DISABLE KEYS */;
+INSERT INTO `users_findyouuser` VALUES (1,'2020-05-21 11:47:05.488482','2020-05-21 11:47:05.488584',NULL,0,'',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2),(2,'2020-05-21 11:57:51.560204','2020-05-21 11:57:51.560260',NULL,0,'',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3),(3,'2020-05-21 12:00:04.831499','2020-05-21 12:00:04.831620',NULL,0,'',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,4),(4,'2020-05-21 12:01:53.429173','2020-05-21 12:01:53.429220',NULL,0,'',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5);
 /*!40000 ALTER TABLE `users_findyouuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -897,6 +857,7 @@ CREATE TABLE `users_invalidlogin` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `message` longtext,
   PRIMARY KEY (`id`)
@@ -926,17 +887,26 @@ CREATE TABLE `users_user` (
   `is_superuser` tinyint(1) NOT NULL,
   `username` varchar(60) NOT NULL,
   `firstName` varchar(255) DEFAULT NULL,
-  `lastName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `mobile` bigint(20) DEFAULT NULL,
+  `mobile` varchar(50) NOT NULL,
   `profile_picture` varchar(100) NOT NULL,
   `gender` smallint(5) unsigned DEFAULT NULL,
   `role` smallint(5) unsigned NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `country_id` int(11) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `username` (`username`),
+  KEY `users_user_city_id_c42179af_fk_users_cscdetails_id` (`city_id`),
+  KEY `users_user_country_id_8d012484_fk_users_cscdetails_id` (`country_id`),
+  KEY `users_user_state_id_cfdd9817_fk_users_cscdetails_id` (`state_id`),
+  CONSTRAINT `users_user_city_id_c42179af_fk_users_cscdetails_id` FOREIGN KEY (`city_id`) REFERENCES `users_cscdetails` (`id`),
+  CONSTRAINT `users_user_country_id_8d012484_fk_users_cscdetails_id` FOREIGN KEY (`country_id`) REFERENCES `users_cscdetails` (`id`),
+  CONSTRAINT `users_user_state_id_cfdd9817_fk_users_cscdetails_id` FOREIGN KEY (`state_id`) REFERENCES `users_cscdetails` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -945,7 +915,7 @@ CREATE TABLE `users_user` (
 
 LOCK TABLES `users_user` WRITE;
 /*!40000 ALTER TABLE `users_user` DISABLE KEYS */;
-INSERT INTO `users_user` VALUES (1,'pbkdf2_sha256$180000$OGeAy92kWuwx$nXnK22S8nRVBbeF5HX4UBGqdYGCA/yHp3Kv1800aBAQ=','2020-05-17 13:20:36.152276',1,'admin',NULL,NULL,'admin@gmail,com',9540042889,'',NULL,2,1,1);
+INSERT INTO `users_user` VALUES (1,'pbkdf2_sha256$180000$wYPi3EpzBmsl$2uzMGfTMeYJZPNcVinsP/A1RFgjyNPf/7HZoOyiT5ro=','2020-05-21 11:41:01.500617',1,'admin','Ajinkya','','admin@gmail.com','9540042889','',NULL,2,1,1,3,1,2),(2,'pbkdf2_sha256$180000$jKVsjqaaCvrP$DWi4RXhQw2x7wMBDWnlUJEQxZFHnqIyaZH1Kj8zER64=',NULL,0,'9540042880','Ajinkya','','ajinkya@gmail.com','9540042880','ajinkyadelhi.png',NULL,2,1,0,3,1,2),(3,'pbkdf2_sha256$180000$Jj9MB4QqGUPl$VeIlwcnbjx/d0+goDUP4EVaP8QcupCmnYVDzFiATQd8=',NULL,0,'9540042881','Andrew','','andrew@gmail.com','9540042881','andrewrajasthan.png',NULL,2,1,0,3,1,2),(4,'pbkdf2_sha256$180000$WzlnyYx6yQIQ$rP3z5d9uVtSfmW2fbHx5OwI601ka6IOE4a5mOJDii0E=',NULL,0,'9540042882','Axar','','axar@gmail.com','9540042882','axardelhi.png',NULL,2,1,0,3,1,2),(5,'pbkdf2_sha256$180000$E17kghWCiocs$pVrwZsD+XIxmp9DXSrLhg2DsLTnXwqdXrLxtxjCVMvk=',NULL,0,'9540042883','Bengemin','','ben@gmail.com','9540042883','benrajasthan.png',NULL,2,1,0,3,1,2);
 /*!40000 ALTER TABLE `users_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1017,6 +987,7 @@ CREATE TABLE `users_userotp` (
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
   `otp` varchar(6) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -1043,4 +1014,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-17 18:51:46
+-- Dump completed on 2020-05-21 17:36:57

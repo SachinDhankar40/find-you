@@ -158,6 +158,8 @@ REST_FRAMEWORK = {
     ),
 }
 
+CONTENT_SERVICE = "http://localhost:8000"
+
 try:
     from .localsettings import *
 except ImportError:

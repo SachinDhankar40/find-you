@@ -1,10 +1,11 @@
 from django.db import models
-from .choices import Chattype , SeenStatus
+from .choices import Chattype , SeenStatus, ObjectStatusChoices
 
 class BaseFindModel(models.Model):
     added_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     updated_by = models.CharField(blank=True,null=True,max_length=100)
+    object_status = models.SmallIntegerField(choices=ObjectStatusChoices.CHOICES,default=0)
 
     class Meta:
         abstract = True
