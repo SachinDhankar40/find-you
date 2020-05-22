@@ -21,11 +21,12 @@ class ContentUser(models.Model):
     BlockList= models.TextField(null=True, blank=True , help_text="show the list of blocked users ids")
     object_status = models.SmallIntegerField(choices=ObjectStatusChoices.CHOICES,default=0)
 
+    def __str__(self):
+        return self.name
 
 class Content(BaseFindModel):
     user = models.ForeignKey(ContentUser,on_delete=models.SET_NULL,null=True)
     description = models.TextField(blank=True, null=True)
-    category = models.IntegerField(choices=ContentCategory.CHOICES)
     place = models.CharField(max_length=100, blank=True, null=True , help_text="content upload location reference")
     contenttype= models.IntegerField(choices = ContentType.CHOICES)
     associate_media = models.FileField(upload_to='textpost/media/', help_text="media file asscociated with text post")
@@ -37,11 +38,19 @@ class Content(BaseFindModel):
     notappropriate = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+class ContentCategoryMapping(BaseFindModel):
+    category = models.IntegerField(choices=ContentCategory.CHOICES)
+    content = models.ForeignKey(Content,on_delete=models.CASCADE)
+
 class Advertisement(BaseFindModel):
     user = models.BigIntegerField(help_text="reference of Advertise partner id")
     media = models.FileField(upload_to='adv/media')
     mediahref = models.TextField(help_text="after click url detail")
     is_active = models.BooleanField(default=True)
+
+class AdvertisementCategoryMapping(BaseFindModel):
+    category = models.IntegerField(choices=ContentCategory.CHOICES)
+    content = models.ForeignKey(Advertisement,on_delete=models.CASCADE)
 
 class SpamReport(BaseFindModel):
     content = models.ForeignKey(Content,on_delete=models.CASCADE)
