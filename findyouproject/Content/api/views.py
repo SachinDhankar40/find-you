@@ -6,7 +6,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions,authentication,generics
-from Content.models import ContentUser
+from Content.models import ContentUser, Content
+from .serializers import ContentSerializer
 
 def render_response(data=None, status=None, error=None):
     if not isinstance(error, list):
@@ -69,3 +70,13 @@ class ContentUserUpdatePic(APIView):
             return render_response(data="Contentuser updated successfully", error=[], status=1)
         else:
             return render_response(data="", error="Invalid input for content user creation", status=0)
+
+class ContentContentList(generics.ListCreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = Content.objects.all()
+    serializer_class = ContentSerializer
+
+    def list(self,request,*args,**kwargs):
+        queryset = Content.objects.filter(is_active=True, object_status=0)
+        serializer_data = self.serializer_class(queryset,many=True)
+        return render_response(data=serializer_data.data, error=[], status=1)

@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions,authentication,generics
 from users.models import User , FindyouUser, CscDetails
 import re
-from .service import contentUserCreate, contentUserUpdate, contentUserUpdateProfilepic
+from .service import contentUserCreate, contentUserUpdate, contentUserUpdateProfilepic, contenList
 import json
 from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
@@ -126,3 +126,16 @@ class UserUpdatePic(APIView):
                 return render_response(data="", error="no info provided", status=0)
         else:
             return render_response(data="", error="no info provided", status=0)
+
+class ContentList(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self,request,*args,**kwargs):
+        income_response = contenList(request)
+        if income_response.status_code == 200:
+            if json.loads(income_response.content).get("status")==1:
+                return render_response(data=json.loads(income_response.content).get("data"), error="", status=1)
+            else:
+                return render_response(data="", error="No response from service", status=0)
+        else:
+            return render_response(data="", error="No response from service", status=0)

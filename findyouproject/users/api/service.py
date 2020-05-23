@@ -29,3 +29,8 @@ def contentUserUpdateProfilepic(url_path,user_id):
     url=settings.CONTENT_SERVICE+"/api/v1/content/content-user-update-pic"
     html_request = requests.post(url,data=data)
     return html_request
+
+def contenList(request):
+    url = settings.CONTENT_SERVICE+"/api/v1/content/content-listing"
+    html_request = requests.get(url)
+    return html_request
