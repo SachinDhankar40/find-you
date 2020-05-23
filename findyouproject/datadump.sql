@@ -109,6 +109,36 @@ LOCK TABLES `Content_advertisement` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Content_advertisementcategorymapping`
+--
+
+DROP TABLE IF EXISTS `Content_advertisementcategorymapping`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Content_advertisementcategorymapping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `added_on` datetime(6) NOT NULL,
+  `updated_on` datetime(6) NOT NULL,
+  `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
+  `category` int(11) NOT NULL,
+  `content_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Content_contentadver_content_id_1e93c58e_fk_Content_a` (`content_id`),
+  CONSTRAINT `Content_contentadver_content_id_1e93c58e_fk_Content_a` FOREIGN KEY (`content_id`) REFERENCES `Content_advertisement` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Content_advertisementcategorymapping`
+--
+
+LOCK TABLES `Content_advertisementcategorymapping` WRITE;
+/*!40000 ALTER TABLE `Content_advertisementcategorymapping` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Content_advertisementcategorymapping` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Content_comment`
 --
 
@@ -191,10 +221,9 @@ CREATE TABLE `Content_content` (
   `updated_by` varchar(100) DEFAULT NULL,
   `object_status` smallint(6) NOT NULL,
   `description` longtext,
-  `category` int(11) NOT NULL,
   `place` varchar(100) DEFAULT NULL,
   `contenttype` int(11) NOT NULL,
-  `associate_media` varchar(100) NOT NULL,
+  `associate_media` varchar(100) DEFAULT NULL,
   `fontfamilly` varchar(150) DEFAULT NULL,
   `media` varchar(100) NOT NULL,
   `medialist` longtext,
@@ -206,7 +235,7 @@ CREATE TABLE `Content_content` (
   PRIMARY KEY (`id`),
   KEY `Content_content_user_id_623248c7_fk_Content_contentuser_id` (`user_id`),
   CONSTRAINT `Content_content_user_id_623248c7_fk_Content_contentuser_id` FOREIGN KEY (`user_id`) REFERENCES `Content_contentuser` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +244,38 @@ CREATE TABLE `Content_content` (
 
 LOCK TABLES `Content_content` WRITE;
 /*!40000 ALTER TABLE `Content_content` DISABLE KEYS */;
+INSERT INTO `Content_content` VALUES (1,'2020-05-22 02:17:51.084067','2020-05-22 02:18:51.134332',NULL,0,'Ajinkya baby dog',NULL,2,'',NULL,'content/media/ajinkyababydog.jpg','',1,1,0,1,1),(2,'2020-05-22 02:19:24.031259','2020-05-22 02:19:24.031300',NULL,0,'Ajinkya dog and parrot',NULL,2,'',NULL,'content/media/ajinkyadogandparrort.jpg','',0,1,0,1,1),(3,'2020-05-22 02:20:11.789033','2020-05-22 02:20:11.789169',NULL,0,'Ajinkya rabbit',NULL,2,'',NULL,'content/media/ajinkyarabbit.jpg','',0,1,0,1,1),(4,'2020-05-22 02:20:45.921965','2020-05-22 02:20:45.922007',NULL,0,'Ajinkya two dogs',NULL,2,'',NULL,'content/media/ajinkyatwodogs.jpg','',0,1,0,1,1),(5,'2020-05-22 02:24:31.224650','2020-05-22 02:24:31.224690',NULL,0,'andrew baby dog',NULL,2,'',NULL,'content/media/andrewbabydog.jpg','',0,1,0,1,2),(6,'2020-05-22 02:26:08.450726','2020-05-22 02:26:08.450793',NULL,0,'andrew baby lab',NULL,2,'',NULL,'content/media/andrewbabylab.jpg','',0,1,0,1,2),(7,'2020-05-22 02:26:39.275674','2020-05-22 02:26:39.275718',NULL,0,'Andrew baby labrador',NULL,2,'',NULL,'content/media/andrewbabylabrador.jpg','',0,1,0,1,2),(8,'2020-05-22 02:27:13.321888','2020-05-22 02:27:13.322006',NULL,0,'andrew white baby dog',NULL,2,'',NULL,'content/media/andrewwhitebabydog.jpg','',0,1,0,1,2),(9,'2020-05-22 02:28:07.425921','2020-05-22 02:28:07.425966',NULL,0,'Axar baby dog 1',NULL,2,'',NULL,'content/media/axarbabydog1.jpeg','',0,1,0,1,3),(10,'2020-05-22 02:28:40.073392','2020-05-22 02:28:40.073432',NULL,0,'Axar cute female dog',NULL,2,'',NULL,'content/media/axarcutefemale.jpg','',0,1,0,1,3),(11,'2020-05-22 02:29:20.661608','2020-05-22 02:29:20.661648',NULL,0,'Axar dog and cat',NULL,2,'',NULL,'content/media/axardogandcat.jpg','',0,1,0,1,3),(12,'2020-05-22 02:29:47.327427','2020-05-22 02:29:47.327492',NULL,0,'axar sleeping dog',NULL,2,'',NULL,'content/media/axarsleepingdog.jpg','',0,1,0,1,3),(13,'2020-05-22 02:30:20.686827','2020-05-22 02:30:20.686869',NULL,0,'ben baby kuala',NULL,2,'',NULL,'content/media/benbabydogkuala.jpeg','',0,1,0,1,4),(14,'2020-05-22 02:30:51.995950','2020-05-22 02:30:51.996096',NULL,0,'Ben fur dog',NULL,2,'',NULL,'content/media/benbabyfurdog.jpg','',0,1,0,1,4),(15,'2020-05-22 02:31:15.668128','2020-05-22 02:31:15.668169',NULL,0,'Ben three lab',NULL,2,'',NULL,'content/media/benthreelab.jpeg','',0,1,0,1,4),(16,'2020-05-22 02:31:53.073071','2020-05-22 02:31:53.073126',NULL,0,'Ben two rabbit',NULL,2,'',NULL,'content/media/bentworabbit.webp','',0,1,0,1,4);
 /*!40000 ALTER TABLE `Content_content` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Content_contentcategorymapping`
+--
+
+DROP TABLE IF EXISTS `Content_contentcategorymapping`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Content_contentcategorymapping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `added_on` datetime(6) NOT NULL,
+  `updated_on` datetime(6) NOT NULL,
+  `updated_by` varchar(100) DEFAULT NULL,
+  `object_status` smallint(6) NOT NULL,
+  `category` int(11) NOT NULL,
+  `content_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Content_contentcateg_content_id_61c36b21_fk_Content_c` (`content_id`),
+  CONSTRAINT `Content_contentcateg_content_id_61c36b21_fk_Content_c` FOREIGN KEY (`content_id`) REFERENCES `Content_content` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Content_contentcategorymapping`
+--
+
+LOCK TABLES `Content_contentcategorymapping` WRITE;
+/*!40000 ALTER TABLE `Content_contentcategorymapping` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Content_contentcategorymapping` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -526,7 +586,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -535,7 +595,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add content type',4,'add_contenttype'),(14,'Can change content type',4,'change_contenttype'),(15,'Can delete content type',4,'delete_contenttype'),(16,'Can view content type',4,'view_contenttype'),(17,'Can add session',5,'add_session'),(18,'Can change session',5,'change_session'),(19,'Can delete session',5,'delete_session'),(20,'Can view session',5,'view_session'),(21,'Can add Token',6,'add_token'),(22,'Can change Token',6,'change_token'),(23,'Can delete Token',6,'delete_token'),(24,'Can view Token',6,'view_token'),(25,'Can add user',7,'add_user'),(26,'Can change user',7,'change_user'),(27,'Can delete user',7,'delete_user'),(28,'Can view user',7,'view_user'),(29,'Can add advertise partner',8,'add_advertisepartner'),(30,'Can change advertise partner',8,'change_advertisepartner'),(31,'Can delete advertise partner',8,'delete_advertisepartner'),(32,'Can view advertise partner',8,'view_advertisepartner'),(33,'Can add csc details',9,'add_cscdetails'),(34,'Can change csc details',9,'change_cscdetails'),(35,'Can delete csc details',9,'delete_cscdetails'),(36,'Can view csc details',9,'view_cscdetails'),(37,'Can add invalid login',10,'add_invalidlogin'),(38,'Can change invalid login',10,'change_invalidlogin'),(39,'Can delete invalid login',10,'delete_invalidlogin'),(40,'Can view invalid login',10,'view_invalidlogin'),(41,'Can add user otp',11,'add_userotp'),(42,'Can change user otp',11,'change_userotp'),(43,'Can delete user otp',11,'delete_userotp'),(44,'Can view user otp',11,'view_userotp'),(45,'Can add findyou user',12,'add_findyouuser'),(46,'Can change findyou user',12,'change_findyouuser'),(47,'Can delete findyou user',12,'delete_findyouuser'),(48,'Can view findyou user',12,'view_findyouuser'),(49,'Can add division',13,'add_division'),(50,'Can change division',13,'change_division'),(51,'Can delete division',13,'delete_division'),(52,'Can view division',13,'view_division'),(53,'Can add content monitor admin',14,'add_contentmonitoradmin'),(54,'Can change content monitor admin',14,'change_contentmonitoradmin'),(55,'Can delete content monitor admin',14,'delete_contentmonitoradmin'),(56,'Can view content monitor admin',14,'view_contentmonitoradmin'),(57,'Can add chat notification',15,'add_chatnotification'),(58,'Can change chat notification',15,'change_chatnotification'),(59,'Can delete chat notification',15,'delete_chatnotification'),(60,'Can view chat notification',15,'view_chatnotification'),(61,'Can add notification content',16,'add_notificationcontent'),(62,'Can change notification content',16,'change_notificationcontent'),(63,'Can delete notification content',16,'delete_notificationcontent'),(64,'Can view notification content',16,'view_notificationcontent'),(65,'Can add user notification',17,'add_usernotification'),(66,'Can change user notification',17,'change_usernotification'),(67,'Can delete user notification',17,'delete_usernotification'),(68,'Can view user notification',17,'view_usernotification'),(69,'Can add content notification',18,'add_contentnotification'),(70,'Can change content notification',18,'change_contentnotification'),(71,'Can delete content notification',18,'delete_contentnotification'),(72,'Can view content notification',18,'view_contentnotification'),(73,'Can add chat',19,'add_chat'),(74,'Can change chat',19,'change_chat'),(75,'Can delete chat',19,'delete_chat'),(76,'Can view chat',19,'view_chat'),(77,'Can add chat content',20,'add_chatcontent'),(78,'Can change chat content',20,'change_chatcontent'),(79,'Can delete chat content',20,'delete_chatcontent'),(80,'Can view chat content',20,'view_chatcontent'),(81,'Can add advertisement',21,'add_advertisement'),(82,'Can change advertisement',21,'change_advertisement'),(83,'Can delete advertisement',21,'delete_advertisement'),(84,'Can view advertisement',21,'view_advertisement'),(85,'Can add comment',22,'add_comment'),(86,'Can change comment',22,'change_comment'),(87,'Can delete comment',22,'delete_comment'),(88,'Can view comment',22,'view_comment'),(89,'Can add content',23,'add_content'),(90,'Can change content',23,'change_content'),(91,'Can delete content',23,'delete_content'),(92,'Can view content',23,'view_content'),(93,'Can add content user',24,'add_contentuser'),(94,'Can change content user',24,'change_contentuser'),(95,'Can delete content user',24,'delete_contentuser'),(96,'Can view content user',24,'view_contentuser'),(97,'Can add view',25,'add_view'),(98,'Can change view',25,'change_view'),(99,'Can delete view',25,'delete_view'),(100,'Can view view',25,'view_view'),(101,'Can add spam report',26,'add_spamreport'),(102,'Can change spam report',26,'change_spamreport'),(103,'Can delete spam report',26,'delete_spamreport'),(104,'Can view spam report',26,'view_spamreport'),(105,'Can add like',27,'add_like'),(106,'Can change like',27,'change_like'),(107,'Can delete like',27,'delete_like'),(108,'Can view like',27,'view_like'),(109,'Can add comment reply',28,'add_commentreply'),(110,'Can change comment reply',28,'change_commentreply'),(111,'Can delete comment reply',28,'delete_commentreply'),(112,'Can view comment reply',28,'view_commentreply');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add content type',4,'add_contenttype'),(14,'Can change content type',4,'change_contenttype'),(15,'Can delete content type',4,'delete_contenttype'),(16,'Can view content type',4,'view_contenttype'),(17,'Can add session',5,'add_session'),(18,'Can change session',5,'change_session'),(19,'Can delete session',5,'delete_session'),(20,'Can view session',5,'view_session'),(21,'Can add Token',6,'add_token'),(22,'Can change Token',6,'change_token'),(23,'Can delete Token',6,'delete_token'),(24,'Can view Token',6,'view_token'),(25,'Can add user',7,'add_user'),(26,'Can change user',7,'change_user'),(27,'Can delete user',7,'delete_user'),(28,'Can view user',7,'view_user'),(29,'Can add advertise partner',8,'add_advertisepartner'),(30,'Can change advertise partner',8,'change_advertisepartner'),(31,'Can delete advertise partner',8,'delete_advertisepartner'),(32,'Can view advertise partner',8,'view_advertisepartner'),(33,'Can add csc details',9,'add_cscdetails'),(34,'Can change csc details',9,'change_cscdetails'),(35,'Can delete csc details',9,'delete_cscdetails'),(36,'Can view csc details',9,'view_cscdetails'),(37,'Can add invalid login',10,'add_invalidlogin'),(38,'Can change invalid login',10,'change_invalidlogin'),(39,'Can delete invalid login',10,'delete_invalidlogin'),(40,'Can view invalid login',10,'view_invalidlogin'),(41,'Can add user otp',11,'add_userotp'),(42,'Can change user otp',11,'change_userotp'),(43,'Can delete user otp',11,'delete_userotp'),(44,'Can view user otp',11,'view_userotp'),(45,'Can add findyou user',12,'add_findyouuser'),(46,'Can change findyou user',12,'change_findyouuser'),(47,'Can delete findyou user',12,'delete_findyouuser'),(48,'Can view findyou user',12,'view_findyouuser'),(49,'Can add division',13,'add_division'),(50,'Can change division',13,'change_division'),(51,'Can delete division',13,'delete_division'),(52,'Can view division',13,'view_division'),(53,'Can add content monitor admin',14,'add_contentmonitoradmin'),(54,'Can change content monitor admin',14,'change_contentmonitoradmin'),(55,'Can delete content monitor admin',14,'delete_contentmonitoradmin'),(56,'Can view content monitor admin',14,'view_contentmonitoradmin'),(57,'Can add chat notification',15,'add_chatnotification'),(58,'Can change chat notification',15,'change_chatnotification'),(59,'Can delete chat notification',15,'delete_chatnotification'),(60,'Can view chat notification',15,'view_chatnotification'),(61,'Can add notification content',16,'add_notificationcontent'),(62,'Can change notification content',16,'change_notificationcontent'),(63,'Can delete notification content',16,'delete_notificationcontent'),(64,'Can view notification content',16,'view_notificationcontent'),(65,'Can add user notification',17,'add_usernotification'),(66,'Can change user notification',17,'change_usernotification'),(67,'Can delete user notification',17,'delete_usernotification'),(68,'Can view user notification',17,'view_usernotification'),(69,'Can add content notification',18,'add_contentnotification'),(70,'Can change content notification',18,'change_contentnotification'),(71,'Can delete content notification',18,'delete_contentnotification'),(72,'Can view content notification',18,'view_contentnotification'),(73,'Can add chat',19,'add_chat'),(74,'Can change chat',19,'change_chat'),(75,'Can delete chat',19,'delete_chat'),(76,'Can view chat',19,'view_chat'),(77,'Can add chat content',20,'add_chatcontent'),(78,'Can change chat content',20,'change_chatcontent'),(79,'Can delete chat content',20,'delete_chatcontent'),(80,'Can view chat content',20,'view_chatcontent'),(81,'Can add advertisement',21,'add_advertisement'),(82,'Can change advertisement',21,'change_advertisement'),(83,'Can delete advertisement',21,'delete_advertisement'),(84,'Can view advertisement',21,'view_advertisement'),(85,'Can add comment',22,'add_comment'),(86,'Can change comment',22,'change_comment'),(87,'Can delete comment',22,'delete_comment'),(88,'Can view comment',22,'view_comment'),(89,'Can add content',23,'add_content'),(90,'Can change content',23,'change_content'),(91,'Can delete content',23,'delete_content'),(92,'Can view content',23,'view_content'),(93,'Can add content user',24,'add_contentuser'),(94,'Can change content user',24,'change_contentuser'),(95,'Can delete content user',24,'delete_contentuser'),(96,'Can view content user',24,'view_contentuser'),(97,'Can add view',25,'add_view'),(98,'Can change view',25,'change_view'),(99,'Can delete view',25,'delete_view'),(100,'Can view view',25,'view_view'),(101,'Can add spam report',26,'add_spamreport'),(102,'Can change spam report',26,'change_spamreport'),(103,'Can delete spam report',26,'delete_spamreport'),(104,'Can view spam report',26,'view_spamreport'),(105,'Can add like',27,'add_like'),(106,'Can change like',27,'change_like'),(107,'Can delete like',27,'delete_like'),(108,'Can view like',27,'view_like'),(109,'Can add comment reply',28,'add_commentreply'),(110,'Can change comment reply',28,'change_commentreply'),(111,'Can delete comment reply',28,'delete_commentreply'),(112,'Can view comment reply',28,'view_commentreply'),(113,'Can add content category mapping',29,'add_contentcategorymapping'),(114,'Can change content category mapping',29,'change_contentcategorymapping'),(115,'Can delete content category mapping',29,'delete_contentcategorymapping'),(116,'Can view content category mapping',29,'view_contentcategorymapping'),(117,'Can add content advertisement mapping',30,'add_contentadvertisementmapping'),(118,'Can change content advertisement mapping',30,'change_contentadvertisementmapping'),(119,'Can delete content advertisement mapping',30,'delete_contentadvertisementmapping'),(120,'Can view content advertisement mapping',30,'view_contentadvertisementmapping'),(121,'Can add advertisement category mapping',30,'add_advertisementcategorymapping'),(122,'Can change advertisement category mapping',30,'change_advertisementcategorymapping'),(123,'Can delete advertisement category mapping',30,'delete_advertisementcategorymapping'),(124,'Can view advertisement category mapping',30,'view_advertisementcategorymapping');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -587,7 +647,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_user_id_c564eba6_fk_users_user_id` (`user_id`),
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -596,7 +656,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2020-05-21 11:45:53.468885','1','India 1',1,'[{\"added\": {}}]',9,1),(2,'2020-05-21 11:46:08.036427','2','Haryana 2',1,'[{\"added\": {}}]',9,1),(3,'2020-05-21 11:46:21.705312','3','Faridabad 3',1,'[{\"added\": {}}]',9,1);
+INSERT INTO `django_admin_log` VALUES (1,'2020-05-21 11:45:53.468885','1','India 1',1,'[{\"added\": {}}]',9,1),(2,'2020-05-21 11:46:08.036427','2','Haryana 2',1,'[{\"added\": {}}]',9,1),(3,'2020-05-21 11:46:21.705312','3','Faridabad 3',1,'[{\"added\": {}}]',9,1),(4,'2020-05-22 02:17:51.089317','1','Content object (1)',1,'[{\"added\": {}}]',23,1),(5,'2020-05-22 02:18:39.474474','1','Ajinkya ',2,'[{\"changed\": {\"fields\": [\"User\"]}}]',23,1),(6,'2020-05-22 02:18:51.135864','1','Ajinkya ',2,'[]',23,1),(7,'2020-05-22 02:19:24.174014','2','Ajinkya ',1,'[{\"added\": {}}]',23,1),(8,'2020-05-22 02:20:11.793346','3','Ajinkya ',1,'[{\"added\": {}}]',23,1),(9,'2020-05-22 02:20:45.926035','4','Ajinkya ',1,'[{\"added\": {}}]',23,1),(10,'2020-05-22 02:24:31.227215','5','Andrew ',1,'[{\"added\": {}}]',23,1),(11,'2020-05-22 02:26:08.455463','6','Andrew ',1,'[{\"added\": {}}]',23,1),(12,'2020-05-22 02:26:39.279889','7','Andrew ',1,'[{\"added\": {}}]',23,1),(13,'2020-05-22 02:27:13.324602','8','Andrew ',1,'[{\"added\": {}}]',23,1),(14,'2020-05-22 02:28:07.430925','9','Axar ',1,'[{\"added\": {}}]',23,1),(15,'2020-05-22 02:28:40.075073','10','Axar ',1,'[{\"added\": {}}]',23,1),(16,'2020-05-22 02:29:20.665857','11','Axar ',1,'[{\"added\": {}}]',23,1),(17,'2020-05-22 02:29:47.333784','12','Axar ',1,'[{\"added\": {}}]',23,1),(18,'2020-05-22 02:30:20.688504','13','Bengemin ',1,'[{\"added\": {}}]',23,1),(19,'2020-05-22 02:30:51.999795','14','Bengemin ',1,'[{\"added\": {}}]',23,1),(20,'2020-05-22 02:31:15.670268','15','Bengemin ',1,'[{\"added\": {}}]',23,1),(21,'2020-05-22 02:31:53.075038','16','Bengemin ',1,'[{\"added\": {}}]',23,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -613,7 +673,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -622,7 +682,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(6,'authtoken','token'),(19,'Chat','chat'),(20,'Chat','chatcontent'),(21,'Content','advertisement'),(22,'Content','comment'),(28,'Content','commentreply'),(23,'Content','content'),(24,'Content','contentuser'),(27,'Content','like'),(26,'Content','spamreport'),(25,'Content','view'),(4,'contenttypes','contenttype'),(15,'Notification','chatnotification'),(18,'Notification','contentnotification'),(16,'Notification','notificationcontent'),(17,'Notification','usernotification'),(5,'sessions','session'),(8,'users','advertisepartner'),(14,'users','contentmonitoradmin'),(9,'users','cscdetails'),(13,'users','division'),(12,'users','findyouuser'),(10,'users','invalidlogin'),(7,'users','user'),(11,'users','userotp');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(6,'authtoken','token'),(19,'Chat','chat'),(20,'Chat','chatcontent'),(21,'Content','advertisement'),(30,'Content','advertisementcategorymapping'),(22,'Content','comment'),(28,'Content','commentreply'),(23,'Content','content'),(29,'Content','contentcategorymapping'),(24,'Content','contentuser'),(27,'Content','like'),(26,'Content','spamreport'),(25,'Content','view'),(4,'contenttypes','contenttype'),(15,'Notification','chatnotification'),(18,'Notification','contentnotification'),(16,'Notification','notificationcontent'),(17,'Notification','usernotification'),(5,'sessions','session'),(8,'users','advertisepartner'),(14,'users','contentmonitoradmin'),(9,'users','cscdetails'),(13,'users','division'),(12,'users','findyouuser'),(10,'users','invalidlogin'),(7,'users','user'),(11,'users','userotp');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -639,7 +699,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -648,7 +708,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'Chat','0001_initial','2020-05-21 11:39:37.478594'),(2,'Content','0001_initial','2020-05-21 11:39:41.269374'),(3,'Notification','0001_initial','2020-05-21 11:39:46.833813'),(4,'contenttypes','0001_initial','2020-05-21 11:39:47.965237'),(5,'contenttypes','0002_remove_content_type_name','2020-05-21 11:39:52.556869'),(6,'auth','0001_initial','2020-05-21 11:39:54.737750'),(7,'auth','0002_alter_permission_name_max_length','2020-05-21 11:39:57.267985'),(8,'auth','0003_alter_user_email_max_length','2020-05-21 11:39:57.313540'),(9,'auth','0004_alter_user_username_opts','2020-05-21 11:39:57.354557'),(10,'auth','0005_alter_user_last_login_null','2020-05-21 11:39:57.388412'),(11,'auth','0006_require_contenttypes_0002','2020-05-21 11:39:57.424637'),(12,'auth','0007_alter_validators_add_error_messages','2020-05-21 11:39:57.465279'),(13,'auth','0008_alter_user_username_max_length','2020-05-21 11:39:57.507009'),(14,'auth','0009_alter_user_last_name_max_length','2020-05-21 11:39:57.547749'),(15,'auth','0010_alter_group_name_max_length','2020-05-21 11:39:57.653803'),(16,'auth','0011_update_proxy_permissions','2020-05-21 11:39:57.709719'),(17,'users','0001_initial','2020-05-21 11:40:02.792664'),(18,'admin','0001_initial','2020-05-21 11:40:10.283007'),(19,'admin','0002_logentry_remove_auto_add','2020-05-21 11:40:11.703966'),(20,'admin','0003_logentry_add_action_flag_choices','2020-05-21 11:40:11.762961'),(21,'authtoken','0001_initial','2020-05-21 11:40:12.121222'),(22,'authtoken','0002_auto_20160226_1747','2020-05-21 11:40:13.656776'),(23,'sessions','0001_initial','2020-05-21 11:40:13.974307');
+INSERT INTO `django_migrations` VALUES (1,'Chat','0001_initial','2020-05-21 11:39:37.478594'),(2,'Content','0001_initial','2020-05-21 11:39:41.269374'),(3,'Notification','0001_initial','2020-05-21 11:39:46.833813'),(4,'contenttypes','0001_initial','2020-05-21 11:39:47.965237'),(5,'contenttypes','0002_remove_content_type_name','2020-05-21 11:39:52.556869'),(6,'auth','0001_initial','2020-05-21 11:39:54.737750'),(7,'auth','0002_alter_permission_name_max_length','2020-05-21 11:39:57.267985'),(8,'auth','0003_alter_user_email_max_length','2020-05-21 11:39:57.313540'),(9,'auth','0004_alter_user_username_opts','2020-05-21 11:39:57.354557'),(10,'auth','0005_alter_user_last_login_null','2020-05-21 11:39:57.388412'),(11,'auth','0006_require_contenttypes_0002','2020-05-21 11:39:57.424637'),(12,'auth','0007_alter_validators_add_error_messages','2020-05-21 11:39:57.465279'),(13,'auth','0008_alter_user_username_max_length','2020-05-21 11:39:57.507009'),(14,'auth','0009_alter_user_last_name_max_length','2020-05-21 11:39:57.547749'),(15,'auth','0010_alter_group_name_max_length','2020-05-21 11:39:57.653803'),(16,'auth','0011_update_proxy_permissions','2020-05-21 11:39:57.709719'),(17,'users','0001_initial','2020-05-21 11:40:02.792664'),(18,'admin','0001_initial','2020-05-21 11:40:10.283007'),(19,'admin','0002_logentry_remove_auto_add','2020-05-21 11:40:11.703966'),(20,'admin','0003_logentry_add_action_flag_choices','2020-05-21 11:40:11.762961'),(21,'authtoken','0001_initial','2020-05-21 11:40:12.121222'),(22,'authtoken','0002_auto_20160226_1747','2020-05-21 11:40:13.656776'),(23,'sessions','0001_initial','2020-05-21 11:40:13.974307'),(24,'Content','0002_auto_20200522_0711','2020-05-22 01:41:57.514679'),(25,'Content','0003_auto_20200522_0740','2020-05-22 02:10:14.679483'),(26,'Content','0004_auto_20200522_0746','2020-05-22 02:16:39.164456');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1014,4 +1074,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-21 17:36:57
+-- Dump completed on 2020-05-23  7:35:47
