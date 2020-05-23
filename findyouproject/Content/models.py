@@ -29,7 +29,7 @@ class Content(BaseFindModel):
     description = models.TextField(blank=True, null=True)
     place = models.CharField(max_length=100, blank=True, null=True , help_text="content upload location reference")
     contenttype= models.IntegerField(choices = ContentType.CHOICES)
-    associate_media = models.FileField(upload_to='textpost/media/', help_text="media file asscociated with text post")
+    associate_media = models.FileField(upload_to='textpost/media/', help_text="media file asscociated with text post",blank=True,null=True)
     fontfamilly = models.CharField(max_length=150, blank=True, null=True, help_text="font family for text post")
     media = models.FileField(upload_to='content/media')
     medialist = models.TextField(blank=True, null=True, help_text="list of media file urls")
@@ -37,6 +37,9 @@ class Content(BaseFindModel):
     commentinvited = models.BooleanField(default=True)
     notappropriate = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.user.name
 
 class ContentCategoryMapping(BaseFindModel):
     category = models.IntegerField(choices=ContentCategory.CHOICES)
