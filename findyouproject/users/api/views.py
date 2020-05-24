@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions,authentication,generics
 from users.models import User , FindyouUser, CscDetails
 import re
-from .service import contentUserCreate, contentUserUpdate, contentUserUpdateProfilepic, #contenList
+from .service import (contentUserCreate, contentUserUpdate, contentUserUpdateProfilepic) #contenList
 import json
 from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
