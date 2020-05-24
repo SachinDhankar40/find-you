@@ -127,15 +127,15 @@ class UserUpdatePic(APIView):
         else:
             return render_response(data="", error="no info provided", status=0)
 
-class ContentList(APIView):
-    permission_classes = [permissions.AllowAny]
+# class ContentList(APIView):
+#     permission_classes = [permissions.AllowAny]
 
-    def get(self,request,*args,**kwargs):
-        income_response = contenList(request)
-        if income_response.status_code == 200:
-            if json.loads(income_response.content).get("status")==1:
-                return render_response(data=json.loads(income_response.content).get("data"), error="", status=1)
-            else:
-                return render_response(data="", error="No response from service", status=0)
-        else:
-            return render_response(data="", error="No response from service", status=0)
+#     def get(self,request,*args,**kwargs):
+#         income_response = contenList(request)
+#         if income_response.status_code == 200:
+#             if json.loads(income_response.content).get("status")==1:
+#                 return render_response(data=json.loads(income_response.content).get("data"), error="", status=1)
+#             else:
+#                 return render_response(data="", error="No response from service", status=0)
+#         else:
+#             return render_response(data="", error="No response from service", status=0)
