@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
 --
 -- Host: localhost    Database: findyou
 -- ------------------------------------------------------
--- Server version	5.7.30-0ubuntu0.18.04.1
+-- Server version	8.0.20-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,17 +21,17 @@
 
 DROP TABLE IF EXISTS `Chat_chat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Chat_chat` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `title` varchar(200) DEFAULT NULL,
-  `contentid` bigint(20) DEFAULT NULL,
+  `contentid` bigint DEFAULT NULL,
   `profile_pic` varchar(100) NOT NULL,
-  `chattype` int(11) NOT NULL,
+  `chattype` int NOT NULL,
   `user` longtext NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
@@ -53,17 +53,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Chat_chatcontent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Chat_chatcontent` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `chat` bigint(20) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `chat` bigint NOT NULL,
   `text` longtext,
   `media` varchar(100) DEFAULT NULL,
-  `seenstatus` int(11) NOT NULL,
+  `seenstatus` int NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -84,14 +84,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_advertisement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_advertisement` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `user` bigint(20) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `user` bigint NOT NULL,
   `media` varchar(100) NOT NULL,
   `mediahref` longtext NOT NULL,
   `is_active` tinyint(1) NOT NULL,
@@ -114,15 +114,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_advertisementcategorymapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_advertisementcategorymapping` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `category` int(11) NOT NULL,
-  `content_id` int(11) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `category` int NOT NULL,
+  `content_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_contentadver_content_id_1e93c58e_fk_Content_a` (`content_id`),
   CONSTRAINT `Content_contentadver_content_id_1e93c58e_fk_Content_a` FOREIGN KEY (`content_id`) REFERENCES `Content_advertisement` (`id`)
@@ -144,19 +144,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `decription` longtext NOT NULL,
-  `comment_by` bigint(20) NOT NULL,
-  `like` bigint(20) DEFAULT NULL,
+  `comment_by` bigint NOT NULL,
+  `like` bigint DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL,
-  `adv_id` int(11) DEFAULT NULL,
-  `content_id` int(11) DEFAULT NULL,
+  `adv_id` int DEFAULT NULL,
+  `content_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_comment_content_id_63325e4e_fk_Content_content_id` (`content_id`),
   KEY `Content_comment_adv_id_489c7475_fk_Content_advertisement_id` (`adv_id`),
@@ -180,18 +180,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_commentreply`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_commentreply` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `comment_by` bigint(20) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `comment_by` bigint NOT NULL,
   `decription` longtext NOT NULL,
-  `like` bigint(20) DEFAULT NULL,
+  `like` bigint DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL,
-  `comment_id` int(11) NOT NULL,
+  `comment_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_commentreply_comment_id_24f2d591_fk_Content_comment_id` (`comment_id`),
   CONSTRAINT `Content_commentreply_comment_id_24f2d591_fk_Content_comment_id` FOREIGN KEY (`comment_id`) REFERENCES `Content_comment` (`id`)
@@ -213,16 +213,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `description` longtext,
   `place` varchar(100) DEFAULT NULL,
-  `contenttype` int(11) NOT NULL,
+  `contenttype` int NOT NULL,
   `associate_media` varchar(100) DEFAULT NULL,
   `fontfamilly` varchar(150) DEFAULT NULL,
   `media` varchar(100) NOT NULL,
@@ -231,11 +231,11 @@ CREATE TABLE `Content_content` (
   `commentinvited` tinyint(1) NOT NULL,
   `notappropriate` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_content_user_id_623248c7_fk_Content_contentuser_id` (`user_id`),
   CONSTRAINT `Content_content_user_id_623248c7_fk_Content_contentuser_id` FOREIGN KEY (`user_id`) REFERENCES `Content_contentuser` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,7 +244,7 @@ CREATE TABLE `Content_content` (
 
 LOCK TABLES `Content_content` WRITE;
 /*!40000 ALTER TABLE `Content_content` DISABLE KEYS */;
-INSERT INTO `Content_content` VALUES (1,'2020-05-22 02:17:51.084067','2020-05-22 02:18:51.134332',NULL,0,'Ajinkya baby dog',NULL,2,'',NULL,'content/media/ajinkyababydog.jpg','',1,1,0,1,1),(2,'2020-05-22 02:19:24.031259','2020-05-22 02:19:24.031300',NULL,0,'Ajinkya dog and parrot',NULL,2,'',NULL,'content/media/ajinkyadogandparrort.jpg','',0,1,0,1,1),(3,'2020-05-22 02:20:11.789033','2020-05-22 02:20:11.789169',NULL,0,'Ajinkya rabbit',NULL,2,'',NULL,'content/media/ajinkyarabbit.jpg','',0,1,0,1,1),(4,'2020-05-22 02:20:45.921965','2020-05-22 02:20:45.922007',NULL,0,'Ajinkya two dogs',NULL,2,'',NULL,'content/media/ajinkyatwodogs.jpg','',0,1,0,1,1),(5,'2020-05-22 02:24:31.224650','2020-05-22 02:24:31.224690',NULL,0,'andrew baby dog',NULL,2,'',NULL,'content/media/andrewbabydog.jpg','',0,1,0,1,2),(6,'2020-05-22 02:26:08.450726','2020-05-22 02:26:08.450793',NULL,0,'andrew baby lab',NULL,2,'',NULL,'content/media/andrewbabylab.jpg','',0,1,0,1,2),(7,'2020-05-22 02:26:39.275674','2020-05-22 02:26:39.275718',NULL,0,'Andrew baby labrador',NULL,2,'',NULL,'content/media/andrewbabylabrador.jpg','',0,1,0,1,2),(8,'2020-05-22 02:27:13.321888','2020-05-22 02:27:13.322006',NULL,0,'andrew white baby dog',NULL,2,'',NULL,'content/media/andrewwhitebabydog.jpg','',0,1,0,1,2),(9,'2020-05-22 02:28:07.425921','2020-05-22 02:28:07.425966',NULL,0,'Axar baby dog 1',NULL,2,'',NULL,'content/media/axarbabydog1.jpeg','',0,1,0,1,3),(10,'2020-05-22 02:28:40.073392','2020-05-22 02:28:40.073432',NULL,0,'Axar cute female dog',NULL,2,'',NULL,'content/media/axarcutefemale.jpg','',0,1,0,1,3),(11,'2020-05-22 02:29:20.661608','2020-05-22 02:29:20.661648',NULL,0,'Axar dog and cat',NULL,2,'',NULL,'content/media/axardogandcat.jpg','',0,1,0,1,3),(12,'2020-05-22 02:29:47.327427','2020-05-22 02:29:47.327492',NULL,0,'axar sleeping dog',NULL,2,'',NULL,'content/media/axarsleepingdog.jpg','',0,1,0,1,3),(13,'2020-05-22 02:30:20.686827','2020-05-22 02:30:20.686869',NULL,0,'ben baby kuala',NULL,2,'',NULL,'content/media/benbabydogkuala.jpeg','',0,1,0,1,4),(14,'2020-05-22 02:30:51.995950','2020-05-22 02:30:51.996096',NULL,0,'Ben fur dog',NULL,2,'',NULL,'content/media/benbabyfurdog.jpg','',0,1,0,1,4),(15,'2020-05-22 02:31:15.668128','2020-05-22 02:31:15.668169',NULL,0,'Ben three lab',NULL,2,'',NULL,'content/media/benthreelab.jpeg','',0,1,0,1,4),(16,'2020-05-22 02:31:53.073071','2020-05-22 02:31:53.073126',NULL,0,'Ben two rabbit',NULL,2,'',NULL,'content/media/bentworabbit.webp','',0,1,0,1,4);
+INSERT INTO `Content_content` VALUES (1,'2020-05-22 02:17:51.084067','2020-05-22 02:18:51.134332',NULL,0,'Ajinkya baby dog',NULL,2,'',NULL,'content/media/ajinkyababydog.jpg','',1,1,0,1,1),(2,'2020-05-22 02:19:24.031259','2020-05-22 02:19:24.031300',NULL,0,'Ajinkya dog and parrot',NULL,2,'',NULL,'content/media/ajinkyadogandparrort.jpg','',0,1,0,1,1),(3,'2020-05-22 02:20:11.789033','2020-05-22 02:20:11.789169',NULL,0,'Ajinkya rabbit',NULL,2,'',NULL,'content/media/ajinkyarabbit.jpg','',0,1,0,1,1),(4,'2020-05-22 02:20:45.921965','2020-05-22 02:20:45.922007',NULL,0,'Ajinkya two dogs',NULL,2,'',NULL,'content/media/ajinkyatwodogs.jpg','',0,1,0,1,1),(5,'2020-05-22 02:24:31.224650','2020-05-22 02:24:31.224690',NULL,0,'andrew baby dog',NULL,2,'',NULL,'content/media/andrewbabydog.jpg','',0,1,0,1,2),(6,'2020-05-22 02:26:08.450726','2020-05-22 02:26:08.450793',NULL,0,'andrew baby lab',NULL,2,'',NULL,'content/media/andrewbabylab.jpg','',0,1,0,1,2),(7,'2020-05-22 02:26:39.275674','2020-05-22 02:26:39.275718',NULL,0,'Andrew baby labrador',NULL,2,'',NULL,'content/media/andrewbabylabrador.jpg','',0,1,0,1,2),(8,'2020-05-22 02:27:13.321888','2020-05-22 02:27:13.322006',NULL,0,'andrew white baby dog',NULL,2,'',NULL,'content/media/andrewwhitebabydog.jpg','',0,1,0,1,2),(9,'2020-05-22 02:28:07.425921','2020-05-22 02:28:07.425966',NULL,0,'Axar baby dog 1',NULL,2,'',NULL,'content/media/axarbabydog1.jpeg','',0,1,0,1,3),(10,'2020-05-22 02:28:40.073392','2020-05-22 02:28:40.073432',NULL,0,'Axar cute female dog',NULL,2,'',NULL,'content/media/axarcutefemale.jpg','',0,1,0,1,3),(11,'2020-05-22 02:29:20.661608','2020-05-22 02:29:20.661648',NULL,0,'Axar dog and cat',NULL,2,'',NULL,'content/media/axardogandcat.jpg','',0,1,0,1,3),(12,'2020-05-22 02:29:47.327427','2020-05-22 02:29:47.327492',NULL,0,'axar sleeping dog',NULL,2,'',NULL,'content/media/axarsleepingdog.jpg','',0,1,0,1,3),(13,'2020-05-22 02:30:20.686827','2020-05-22 02:30:20.686869',NULL,0,'ben baby kuala',NULL,2,'',NULL,'content/media/benbabydogkuala.jpeg','',0,1,0,1,4),(14,'2020-05-22 02:30:51.995950','2020-05-22 02:30:51.996096',NULL,0,'Ben fur dog',NULL,2,'',NULL,'content/media/benbabyfurdog.jpg','',0,1,0,1,4),(15,'2020-05-22 02:31:15.668128','2020-05-22 02:31:15.668169',NULL,0,'Ben three lab',NULL,2,'',NULL,'content/media/benthreelab.jpeg','',0,1,0,1,4),(16,'2020-05-22 02:31:53.073071','2020-05-22 02:31:53.073126',NULL,0,'Ben two rabbit',NULL,2,'',NULL,'content/media/bentworabbit.webp','',0,1,0,1,4),(17,'2020-06-03 13:40:29.225397','2020-06-03 13:40:29.225441',NULL,0,'Ajinkya sample earth video','earth',1,'',NULL,'content/media/samplevideoearth_tSjI2pH.mp4','',0,1,0,1,1),(18,'2020-06-03 13:41:34.453592','2020-06-03 13:41:34.453621',NULL,0,'Ajinkya sample video heavy',NULL,1,'',NULL,'content/media/Microscope_5__Scientist__Videvo.mov','',0,1,0,1,1),(19,'2020-06-03 13:42:06.659846','2020-06-03 13:42:06.659889',NULL,0,'Ajinkya sample video small',NULL,1,'',NULL,'content/media/TRA3106_yYJ1EaF.3gp','',0,1,0,1,1),(20,'2020-06-03 13:42:49.224838','2020-06-03 13:42:49.224886',NULL,0,'Ajinkya very small video','ghuiyan ke khet mein',1,'',NULL,'content/media/samplevideo2_gXRasFd.webm','',0,1,0,1,1);
 /*!40000 ALTER TABLE `Content_content` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,15 +254,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_contentcategorymapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_contentcategorymapping` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `category` int(11) NOT NULL,
-  `content_id` int(11) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `category` int NOT NULL,
+  `content_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_contentcateg_content_id_61c36b21_fk_Content_c` (`content_id`),
   CONSTRAINT `Content_contentcateg_content_id_61c36b21_fk_Content_c` FOREIGN KEY (`content_id`) REFERENCES `Content_content` (`id`)
@@ -284,18 +284,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_contentuser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_contentuser` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` bigint(20) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` bigint NOT NULL,
   `profile_picture` longtext,
   `name` varchar(255) DEFAULT NULL,
   `Interest` longtext,
-  `country` bigint(20) DEFAULT NULL,
-  `state` bigint(20) DEFAULT NULL,
-  `city` bigint(20) DEFAULT NULL,
+  `country` bigint DEFAULT NULL,
+  `state` bigint DEFAULT NULL,
+  `city` bigint DEFAULT NULL,
   `BlockList` longtext,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -316,16 +316,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_like`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_like` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `liked_by` bigint(20) NOT NULL,
-  `adv_id` int(11) DEFAULT NULL,
-  `content_id` int(11) DEFAULT NULL,
+  `object_status` smallint NOT NULL,
+  `liked_by` bigint NOT NULL,
+  `adv_id` int DEFAULT NULL,
+  `content_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_like_adv_id_08667689_fk_Content_advertisement_id` (`adv_id`),
   KEY `Content_like_content_id_3e82e5ef_fk_Content_content_id` (`content_id`),
@@ -349,16 +349,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_spamreport`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_spamreport` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `reported_by` bigint(20) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `reported_by` bigint NOT NULL,
   `decription` longtext NOT NULL,
-  `content_id` int(11) NOT NULL,
+  `content_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_spamreport_content_id_77bc1fc1_fk_Content_content_id` (`content_id`),
   CONSTRAINT `Content_spamreport_content_id_77bc1fc1_fk_Content_content_id` FOREIGN KEY (`content_id`) REFERENCES `Content_content` (`id`)
@@ -380,15 +380,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Content_view`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Content_view` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `adv_id` int(11) DEFAULT NULL,
-  `content_id` int(11) DEFAULT NULL,
+  `object_status` smallint NOT NULL,
+  `adv_id` int DEFAULT NULL,
+  `content_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Content_view_adv_id_063b0650_fk_Content_advertisement_id` (`adv_id`),
   KEY `Content_view_content_id_d6f8a817_fk_Content_content_id` (`content_id`),
@@ -412,14 +412,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Notification_chatnotification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Notification_chatnotification` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `chat` bigint(20) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `chat` bigint NOT NULL,
   `description` varchar(150) NOT NULL,
   `contentstatement` longtext NOT NULL,
   PRIMARY KEY (`id`)
@@ -441,16 +441,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Notification_contentnotification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Notification_contentnotification` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `description` varchar(150) NOT NULL,
   `contentstatement` longtext NOT NULL,
-  `content_id` int(11) NOT NULL,
+  `content_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Notification_content_content_id_6b746bd1_fk_Notificat` (`content_id`),
   CONSTRAINT `Notification_content_content_id_6b746bd1_fk_Notificat` FOREIGN KEY (`content_id`) REFERENCES `Notification_notificationcontent` (`id`)
@@ -472,12 +472,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Notification_notificationcontent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Notification_notificationcontent` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `contentId` bigint(20) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `contentId` bigint NOT NULL,
   `contentthumbnail` longtext,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -497,14 +497,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Notification_usernotification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Notification_usernotification` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `user` bigint(20) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `user` bigint NOT NULL,
   `description` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -525,9 +525,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_group`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auth_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
@@ -549,11 +549,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_group_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auth_group_permissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `group_id` int NOT NULL,
+  `permission_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
   KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
@@ -577,11 +577,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auth_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `content_type_id` int(11) NOT NULL,
+  `content_type_id` int NOT NULL,
   `codename` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
@@ -605,11 +605,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `authtoken_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `authtoken_token` (
   `key` varchar(40) NOT NULL,
   `created` datetime(6) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`key`),
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `authtoken_token_user_id_35299eff_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
@@ -632,22 +632,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_admin_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_admin_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `action_time` datetime(6) NOT NULL,
   `object_id` longtext,
   `object_repr` varchar(200) NOT NULL,
-  `action_flag` smallint(5) unsigned NOT NULL,
+  `action_flag` smallint unsigned NOT NULL,
   `change_message` longtext NOT NULL,
-  `content_type_id` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `content_type_id` int DEFAULT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
   KEY `django_admin_log_user_id_c564eba6_fk_users_user_id` (`user_id`),
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -656,7 +656,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2020-05-21 11:45:53.468885','1','India 1',1,'[{\"added\": {}}]',9,1),(2,'2020-05-21 11:46:08.036427','2','Haryana 2',1,'[{\"added\": {}}]',9,1),(3,'2020-05-21 11:46:21.705312','3','Faridabad 3',1,'[{\"added\": {}}]',9,1),(4,'2020-05-22 02:17:51.089317','1','Content object (1)',1,'[{\"added\": {}}]',23,1),(5,'2020-05-22 02:18:39.474474','1','Ajinkya ',2,'[{\"changed\": {\"fields\": [\"User\"]}}]',23,1),(6,'2020-05-22 02:18:51.135864','1','Ajinkya ',2,'[]',23,1),(7,'2020-05-22 02:19:24.174014','2','Ajinkya ',1,'[{\"added\": {}}]',23,1),(8,'2020-05-22 02:20:11.793346','3','Ajinkya ',1,'[{\"added\": {}}]',23,1),(9,'2020-05-22 02:20:45.926035','4','Ajinkya ',1,'[{\"added\": {}}]',23,1),(10,'2020-05-22 02:24:31.227215','5','Andrew ',1,'[{\"added\": {}}]',23,1),(11,'2020-05-22 02:26:08.455463','6','Andrew ',1,'[{\"added\": {}}]',23,1),(12,'2020-05-22 02:26:39.279889','7','Andrew ',1,'[{\"added\": {}}]',23,1),(13,'2020-05-22 02:27:13.324602','8','Andrew ',1,'[{\"added\": {}}]',23,1),(14,'2020-05-22 02:28:07.430925','9','Axar ',1,'[{\"added\": {}}]',23,1),(15,'2020-05-22 02:28:40.075073','10','Axar ',1,'[{\"added\": {}}]',23,1),(16,'2020-05-22 02:29:20.665857','11','Axar ',1,'[{\"added\": {}}]',23,1),(17,'2020-05-22 02:29:47.333784','12','Axar ',1,'[{\"added\": {}}]',23,1),(18,'2020-05-22 02:30:20.688504','13','Bengemin ',1,'[{\"added\": {}}]',23,1),(19,'2020-05-22 02:30:51.999795','14','Bengemin ',1,'[{\"added\": {}}]',23,1),(20,'2020-05-22 02:31:15.670268','15','Bengemin ',1,'[{\"added\": {}}]',23,1),(21,'2020-05-22 02:31:53.075038','16','Bengemin ',1,'[{\"added\": {}}]',23,1);
+INSERT INTO `django_admin_log` VALUES (1,'2020-05-21 11:45:53.468885','1','India 1',1,'[{\"added\": {}}]',9,1),(2,'2020-05-21 11:46:08.036427','2','Haryana 2',1,'[{\"added\": {}}]',9,1),(3,'2020-05-21 11:46:21.705312','3','Faridabad 3',1,'[{\"added\": {}}]',9,1),(4,'2020-05-22 02:17:51.089317','1','Content object (1)',1,'[{\"added\": {}}]',23,1),(5,'2020-05-22 02:18:39.474474','1','Ajinkya ',2,'[{\"changed\": {\"fields\": [\"User\"]}}]',23,1),(6,'2020-05-22 02:18:51.135864','1','Ajinkya ',2,'[]',23,1),(7,'2020-05-22 02:19:24.174014','2','Ajinkya ',1,'[{\"added\": {}}]',23,1),(8,'2020-05-22 02:20:11.793346','3','Ajinkya ',1,'[{\"added\": {}}]',23,1),(9,'2020-05-22 02:20:45.926035','4','Ajinkya ',1,'[{\"added\": {}}]',23,1),(10,'2020-05-22 02:24:31.227215','5','Andrew ',1,'[{\"added\": {}}]',23,1),(11,'2020-05-22 02:26:08.455463','6','Andrew ',1,'[{\"added\": {}}]',23,1),(12,'2020-05-22 02:26:39.279889','7','Andrew ',1,'[{\"added\": {}}]',23,1),(13,'2020-05-22 02:27:13.324602','8','Andrew ',1,'[{\"added\": {}}]',23,1),(14,'2020-05-22 02:28:07.430925','9','Axar ',1,'[{\"added\": {}}]',23,1),(15,'2020-05-22 02:28:40.075073','10','Axar ',1,'[{\"added\": {}}]',23,1),(16,'2020-05-22 02:29:20.665857','11','Axar ',1,'[{\"added\": {}}]',23,1),(17,'2020-05-22 02:29:47.333784','12','Axar ',1,'[{\"added\": {}}]',23,1),(18,'2020-05-22 02:30:20.688504','13','Bengemin ',1,'[{\"added\": {}}]',23,1),(19,'2020-05-22 02:30:51.999795','14','Bengemin ',1,'[{\"added\": {}}]',23,1),(20,'2020-05-22 02:31:15.670268','15','Bengemin ',1,'[{\"added\": {}}]',23,1),(21,'2020-05-22 02:31:53.075038','16','Bengemin ',1,'[{\"added\": {}}]',23,1),(22,'2020-06-03 13:40:29.227716','17','Ajinkya ',1,'[{\"added\": {}}]',23,1),(23,'2020-06-03 13:41:34.454491','18','Ajinkya ',1,'[{\"added\": {}}]',23,1),(24,'2020-06-03 13:42:06.661617','19','Ajinkya ',1,'[{\"added\": {}}]',23,1),(25,'2020-06-03 13:42:49.226778','20','Ajinkya ',1,'[{\"added\": {}}]',23,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -666,9 +666,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_content_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_content_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `app_label` varchar(100) NOT NULL,
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
@@ -692,9 +692,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_migrations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `app` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
@@ -718,7 +718,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_session` (
   `session_key` varchar(40) NOT NULL,
   `session_data` longtext NOT NULL,
@@ -734,7 +734,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('w27y1f14yjw2cmla7xxuh88f9q3xeyun','NTU2NmNkMTEyMzkzMjc5NGQzODk2OTNiYTIyNmU4OGRmMTEyN2RiYTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMTEyYjM4MzBmZDM1NGYzM2QyZmNmMWJiN2ZlNjlmNTBjNjhmOWI2In0=','2020-06-04 11:41:01.540552');
+INSERT INTO `django_session` VALUES ('q6csji330iu0n039yg5zt8xf4ws0j6ig','NTU2NmNkMTEyMzkzMjc5NGQzODk2OTNiYTIyNmU4OGRmMTEyN2RiYTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMTEyYjM4MzBmZDM1NGYzM2QyZmNmMWJiN2ZlNjlmNTBjNjhmOWI2In0=','2020-06-17 13:39:47.744449'),('w27y1f14yjw2cmla7xxuh88f9q3xeyun','NTU2NmNkMTEyMzkzMjc5NGQzODk2OTNiYTIyNmU4OGRmMTEyN2RiYTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkMTEyYjM4MzBmZDM1NGYzM2QyZmNmMWJiN2ZlNjlmNTBjNjhmOWI2In0=','2020-06-04 11:41:01.540552');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -744,16 +744,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_advertisepartner`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_advertisepartner` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `name` varchar(200) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `mobile` bigint(20) NOT NULL,
+  `mobile` bigint NOT NULL,
   `companyname` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -774,16 +774,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_contentmonitoradmin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_contentmonitoradmin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
-  `content_type` int(11) NOT NULL,
-  `region_id` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `object_status` smallint NOT NULL,
+  `content_type` int NOT NULL,
+  `region_id` int DEFAULT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `users_contentmonitor_region_id_7af2aa93_fk_users_div` (`region_id`),
@@ -807,16 +807,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_cscdetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_cscdetails` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `label` varchar(50) DEFAULT NULL,
-  `csc_type` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `csc_type` int DEFAULT NULL,
+  `parent_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `users_cscdetails_parent_id_f5ec93cf_fk_users_cscdetails_id` (`parent_id`),
   CONSTRAINT `users_cscdetails_parent_id_f5ec93cf_fk_users_cscdetails_id` FOREIGN KEY (`parent_id`) REFERENCES `users_cscdetails` (`id`)
@@ -839,15 +839,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_division`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_division` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `label` varchar(150) NOT NULL,
-  `csc_id` int(11) DEFAULT NULL,
+  `csc_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `users_division_csc_id_08ebe0bf_fk_users_cscdetails_id` (`csc_id`),
   CONSTRAINT `users_division_csc_id_08ebe0bf_fk_users_cscdetails_id` FOREIGN KEY (`csc_id`) REFERENCES `users_cscdetails` (`id`)
@@ -869,26 +869,26 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_findyouuser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_findyouuser` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `coverpic` varchar(100) DEFAULT NULL,
   `description` longtext,
   `primecreater` tinyint(1) NOT NULL,
   `Interest` longtext,
   `BlockList` longtext,
   `contentViewpercent` double DEFAULT NULL,
-  `post` bigint(20) DEFAULT NULL,
-  `subscriber` bigint(20) DEFAULT NULL,
+  `post` bigint DEFAULT NULL,
+  `subscriber` bigint DEFAULT NULL,
   `subscriberUser` longtext,
-  `subscribing` bigint(20) DEFAULT NULL,
+  `subscribing` bigint DEFAULT NULL,
   `subscribingUser` longtext,
   `saved_content` longtext,
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `users_findyouuser_user_id_53319659_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
@@ -911,13 +911,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_invalidlogin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_invalidlogin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `message` longtext,
   PRIMARY KEY (`id`)
@@ -939,9 +939,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `password` varchar(128) NOT NULL,
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
@@ -951,13 +951,13 @@ CREATE TABLE `users_user` (
   `email` varchar(255) DEFAULT NULL,
   `mobile` varchar(50) NOT NULL,
   `profile_picture` varchar(100) NOT NULL,
-  `gender` smallint(5) unsigned DEFAULT NULL,
-  `role` smallint(5) unsigned NOT NULL,
+  `gender` smallint unsigned DEFAULT NULL,
+  `role` smallint unsigned NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
-  `city_id` int(11) DEFAULT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `state_id` int(11) DEFAULT NULL,
+  `city_id` int DEFAULT NULL,
+  `country_id` int DEFAULT NULL,
+  `state_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `users_user_city_id_c42179af_fk_users_cscdetails_id` (`city_id`),
@@ -975,7 +975,7 @@ CREATE TABLE `users_user` (
 
 LOCK TABLES `users_user` WRITE;
 /*!40000 ALTER TABLE `users_user` DISABLE KEYS */;
-INSERT INTO `users_user` VALUES (1,'pbkdf2_sha256$180000$wYPi3EpzBmsl$2uzMGfTMeYJZPNcVinsP/A1RFgjyNPf/7HZoOyiT5ro=','2020-05-21 11:41:01.500617',1,'admin','Ajinkya','','admin@gmail.com','9540042889','',NULL,2,1,1,3,1,2),(2,'pbkdf2_sha256$180000$jKVsjqaaCvrP$DWi4RXhQw2x7wMBDWnlUJEQxZFHnqIyaZH1Kj8zER64=',NULL,0,'9540042880','Ajinkya','','ajinkya@gmail.com','9540042880','ajinkyadelhi.png',NULL,2,1,0,3,1,2),(3,'pbkdf2_sha256$180000$Jj9MB4QqGUPl$VeIlwcnbjx/d0+goDUP4EVaP8QcupCmnYVDzFiATQd8=',NULL,0,'9540042881','Andrew','','andrew@gmail.com','9540042881','andrewrajasthan.png',NULL,2,1,0,3,1,2),(4,'pbkdf2_sha256$180000$WzlnyYx6yQIQ$rP3z5d9uVtSfmW2fbHx5OwI601ka6IOE4a5mOJDii0E=',NULL,0,'9540042882','Axar','','axar@gmail.com','9540042882','axardelhi.png',NULL,2,1,0,3,1,2),(5,'pbkdf2_sha256$180000$E17kghWCiocs$pVrwZsD+XIxmp9DXSrLhg2DsLTnXwqdXrLxtxjCVMvk=',NULL,0,'9540042883','Bengemin','','ben@gmail.com','9540042883','benrajasthan.png',NULL,2,1,0,3,1,2);
+INSERT INTO `users_user` VALUES (1,'pbkdf2_sha256$180000$wYPi3EpzBmsl$2uzMGfTMeYJZPNcVinsP/A1RFgjyNPf/7HZoOyiT5ro=','2020-06-03 13:39:47.461024',1,'admin','Ajinkya','','admin@gmail.com','9540042889','',NULL,2,1,1,3,1,2),(2,'pbkdf2_sha256$180000$jKVsjqaaCvrP$DWi4RXhQw2x7wMBDWnlUJEQxZFHnqIyaZH1Kj8zER64=',NULL,0,'9540042880','Ajinkya','','ajinkya@gmail.com','9540042880','ajinkyadelhi.png',NULL,2,1,0,3,1,2),(3,'pbkdf2_sha256$180000$Jj9MB4QqGUPl$VeIlwcnbjx/d0+goDUP4EVaP8QcupCmnYVDzFiATQd8=',NULL,0,'9540042881','Andrew','','andrew@gmail.com','9540042881','andrewrajasthan.png',NULL,2,1,0,3,1,2),(4,'pbkdf2_sha256$180000$WzlnyYx6yQIQ$rP3z5d9uVtSfmW2fbHx5OwI601ka6IOE4a5mOJDii0E=',NULL,0,'9540042882','Axar','','axar@gmail.com','9540042882','axardelhi.png',NULL,2,1,0,3,1,2),(5,'pbkdf2_sha256$180000$E17kghWCiocs$pVrwZsD+XIxmp9DXSrLhg2DsLTnXwqdXrLxtxjCVMvk=',NULL,0,'9540042883','Bengemin','','ben@gmail.com','9540042883','benrajasthan.png',NULL,2,1,0,3,1,2);
 /*!40000 ALTER TABLE `users_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -985,11 +985,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_user_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_user_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `group_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_user_groups_user_id_group_id_b88eab82_uniq` (`user_id`,`group_id`),
   KEY `users_user_groups_group_id_9afc8d0e_fk_auth_group_id` (`group_id`),
@@ -1013,11 +1013,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_user_user_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_user_user_permissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `permission_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_user_user_permissions_user_id_permission_id_43338c45_uniq` (`user_id`,`permission_id`),
   KEY `users_user_user_perm_permission_id_0b93982e_fk_auth_perm` (`permission_id`),
@@ -1041,15 +1041,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_userotp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_userotp` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `added_on` datetime(6) NOT NULL,
   `updated_on` datetime(6) NOT NULL,
   `updated_by` varchar(100) DEFAULT NULL,
-  `object_status` smallint(6) NOT NULL,
+  `object_status` smallint NOT NULL,
   `otp` varchar(6) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `users_userotp_user_id_7b41e28a_fk_users_user_id` (`user_id`),
   CONSTRAINT `users_userotp_user_id_7b41e28a_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
@@ -1074,4 +1074,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-23  7:35:47
+-- Dump completed on 2020-06-03 19:13:42
