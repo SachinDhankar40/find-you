@@ -77,6 +77,6 @@ class ContentContentList(generics.ListCreateAPIView):
     serializer_class = ContentSerializer
 
     def list(self,request,*args,**kwargs):
-        queryset = Content.objects.filter(is_active=True, object_status=0)
+        queryset = Content.objects.filter(is_active=True, object_status=0).order_by('-id')
         serializer_data = self.serializer_class(queryset,many=True)
         return render_response(data=serializer_data.data, error=[], status=1)
