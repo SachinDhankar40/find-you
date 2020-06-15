@@ -31,11 +31,13 @@ class Content(BaseFindModel):
     contenttype= models.IntegerField(choices = ContentType.CHOICES)
     associate_media = models.FileField(upload_to='textpost/media/', help_text="media file asscociated with text post",blank=True,null=True)
     fontfamilly = models.CharField(max_length=150, blank=True, null=True, help_text="font family for text post")
-    media = models.FileField(upload_to='content/media')
+    media = models.FileField(upload_to='content/media',blank=True,null=True)
+    textpostcontent = models.TextField(blank=True, null=True, help_text="content for text post")
     medialist = models.TextField(blank=True, null=True, help_text="list of media file urls")
     chatInvited = models.BooleanField(default=False)
     commentinvited = models.BooleanField(default=True)
     notappropriate = models.BooleanField(default=False)
+    secret = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     
     def __str__(self):
